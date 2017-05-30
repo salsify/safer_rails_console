@@ -8,10 +8,6 @@ env = ::Rails.env.downcase
 color = config.prompt_colors ? config.prompt_colors.fetch(env, NONE) : NONE
 env_name = config.prompt_colors ? config.env_names.fetch(env, 'unknown env') : env
 
-if config.warn && config.warn.include?(env)
-  puts color_text(config.warn_text, color) if config.warn_text
-end
-
 IRB.conf[:PROMPT][:RAILS_ENV] = {
   PROMPT_I: color_text("#{app}(#{env_name}):%03n:%i> ", color),
   PROMPT_N: color_text("#{app}(#{env_name}):%03n:%i> ", color),

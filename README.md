@@ -1,8 +1,6 @@
 # SaferRailsConsole
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/safer_rails_console`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem makes console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and disabling external connections, job queueing, etc.
 
 ## Installation
 
@@ -22,7 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem is autoloaded via Railties.  The following defaults can be configured from `environments` or `application.rb`:
+```ruby
+# Set what console is used. Currently, only 'irb' is supported. 'pry' and other consoles are to-be added.
+config.safer_rails_console.console = 'irb'
+ 
+# Mapping environments to shortened names. `false` to disable.
+config.safer_rails_console.env_names = {
+                                         'development' => 'dev',
+                                         'staging' => 'staging',
+                                         'production' => 'prod'
+                                       }
+                                       
+# Mapping environments to console prompt colors. See colors.rb for colors. `false` to disable.
+config.safer_rails_console.prompt_colors = {
+                                             'development' => GREEN,
+                                             'staging' => YELLOW,
+                                             'production' => RED
+                                           }
+                                           
+# Set environments which should default to sandbox. `false` to disable.
+config.safer_rails_console.sandbox = ['production']
+ 
+# Set the keyword users need to enter to disable sandbox mode upon console entry for the specified environments.
+config.safer_rails_console.sandbox_disable_keyword = 'production'
+ 
+# Set environments that should have a warning. `false` to disable.
+config.safer_rails_console.warn = ['production']
+ 
+# Set warning message that should appear in the specified environments.
+config.safer_rails_console.warn_text = "WARNING: YOU ARE USING RAILS CONSOLE UNSANDBOXED!\n" \
+                                       'Changing data can cause serious data loss. ' \
+                                       'Make sure you know what you\'re doing.'
+```
+
+The quickest way to demo this gem is to add 'development' to `config.safer_rails_console.sandbox` and `config.safer_rails_console.warn`.
 
 ## Development
 

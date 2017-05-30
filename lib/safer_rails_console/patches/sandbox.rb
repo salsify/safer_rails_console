@@ -3,16 +3,18 @@ module SaferRailsConsole
     module Sandbox
       ::Rails::Application.class_eval do
         def require_environment_with_console!
-          if defined?(Rails::Console) && SaferRailsConsole.configuration.sandbox.include?(Rails.env.downcase)
+          if defined?(Rails::Console)
             Rails::Console.class_eval do
               class << self
                 include SaferRailsConsole::Console
 
                 def start(*args)
                   options = args.last
-                  options[:sandbox] = user_input if options[:sandbox].blank?
 
-                  initialize_sandbox if options[:sandbox]
+                  if sandbox?
+                    options[:sandbox] = user_input if options[:sandbox].blank?
+                    options[:sandbox] ? initialize_sandbox : print_warning
+                  end
 
                   new(*args).start
                 end

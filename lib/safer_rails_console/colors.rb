@@ -5,7 +5,7 @@ module SaferRailsConsole
     GREEN = 32
     YELLOW = 33
 
-    def self.color_text(text, color_code)
+    def color_text(text, color_code)
       "\e[#{color_code}m#{text}\e[0m"
     end
   end

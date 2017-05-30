@@ -11,16 +11,14 @@ module SaferRailsConsole
     config.safer_rails_console = ActiveSupport::OrderedOptions.new
 
     initializer 'safer_rails_console.configure' do |app|
-      set_config(app)
+      set_config(app.config.safer_rails_console)
     end
 
     config.after_initialize do
-      monkey_patch
+      monkey_patches
     end
 
-    def set_config(app)
-      app_config = app.config.safer_rails_console
-
+    def set_config(app_config)
       SaferRailsConsole.configure do |config|
         config.console = app_config.fetch(:console, 'irb')
         config.env_names = app_config.fetch(:env_names,
@@ -37,22 +35,20 @@ module SaferRailsConsole
                                                    'production' => RED
                                                }
         )
-        config.sandbox = app_config.fetch(:sandbox, ['production', 'development'])
+        config.sandbox = app_config.fetch(:sandbox, ['production'])
         config.sandbox_disable_keyword = app_config.fetch(:sandbox_disable_keyword, 'production')
-        config.warn = app_config.fetch(:warn, ['production', 'development'])
+        config.warn = app_config.fetch(:warn, ['production'])
         config.warn_text = app_config.fetch(:warn_text,
-                                            "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
+                                            "WARNING: YOU ARE USING RAILS CONSOLE UNSANDBOXED!\n" \
                                             'Changing data can cause serious data loss. ' \
                                             'Make sure you know what you\'re doing.'
         )
       end
     end
 
-    def monkey_patch
-      config = SaferRailsConsole.configuration
-
+    def monkey_patches
       require 'safer_rails_console/patches/console'
-      require 'safer_rails_console/patches/sandbox' if config.sandbox
+      require 'safer_rails_console/patches/sandbox'
     end
   end
 end

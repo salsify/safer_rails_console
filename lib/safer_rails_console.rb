@@ -1,5 +1,7 @@
 require 'active_support'
 require 'safer_rails_console/version'
+require 'safer_rails_console/colors'
+require 'safer_rails_console/console'
 
 module SaferRailsConsole
   def self.configuration
