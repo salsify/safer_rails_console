@@ -3,6 +3,10 @@ module SaferRailsConsole
     class << self
       VERSION = Gem::Version.new(::Rails::VERSION)
 
+      def four_one?
+        Gem::Requirement.new('~> 4.1.0').satisfied_by?(VERSION)
+      end
+
       def four_two?
         Gem::Requirement.new('~> 4.2.0').satisfied_by?(VERSION)
       end
