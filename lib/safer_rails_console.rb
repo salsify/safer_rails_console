@@ -1,6 +1,8 @@
 require 'active_support/configurable'
+require 'safer_rails_console/console'
 require 'safer_rails_console/colors'
 require 'safer_rails_console/railtie'
+require 'safer_rails_console/rails_version'
 require 'safer_rails_console/version'
 require 'safer_rails_console/patches/disable_sandbox_flag'
 
