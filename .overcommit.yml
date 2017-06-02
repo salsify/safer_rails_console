@@ -1,0 +1,13 @@
+PreCommit:
+  RuboCop:
+    enabled: true
+    required: false
+    on_warn: fail
+
+  HardTabs:
+    enabled: true
+    required: false
+
+CommitMsg:
+  TrailingPeriod:
+    enabled: false

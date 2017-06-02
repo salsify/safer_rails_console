@@ -1,5 +1,4 @@
 /.bundle/
-/.idea/
 /.yardoc
 /Gemfile.lock
 /_yardoc/
@@ -11,3 +10,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# Appraisal gemfile.locks
+/gemfiles/*.gemfile.lock

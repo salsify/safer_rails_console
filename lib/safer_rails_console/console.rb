@@ -3,7 +3,7 @@ module SaferRailsConsole
     include SaferRailsConsole::Colors
 
     def initialize_sandbox
-      auto_rollback
+      enable_auto_rollback
     end
 
     def print_warning
@@ -11,26 +11,21 @@ module SaferRailsConsole
       color = config.prompt_colors ? config.prompt_colors.fetch(env, NONE) : NONE
 
       if config.warn && config.warn.include?(env)
-        puts color_text(config.warn_text, color) if config.warn_text
+        puts color_text(config.warn_text, color) if config.warn_text # rubocop:disable Rails/Output
       end
     end
 
-    def user_input
-      puts "Defaulting the console into sandbox mode.\n" \
-           "Type '#{config.sandbox_disable_keyword}' to disable. Anything else will begin a sandboxed session:"
+    def sandbox_prompt
+      puts "Defaulting the console into sandbox mode.\nType '#{config.sandbox_disable_keyword}' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
       gets.strip != config.sandbox_disable_keyword
-    end
-
-    def sandbox?
-     config.sandbox && config.sandbox.include?(Rails.env.downcase)
     end
 
     private
 
-    def auto_rollback
+    def enable_auto_rollback
       if defined?(ActiveRecord::ConnectionAdapters::AbstractAdapter)
         ActiveRecord::ConnectionAdapters::AbstractAdapter.class_eval do
-          def log_with_console(sql, name = "SQL", binds = [], statement_name = nil)
+          def log_with_console(sql, name = 'SQL', binds = [], statement_name = nil)
             log_without_console(sql, name, binds, statement_name) { yield }
           rescue => e
             connection = ActiveRecord::Base.connection

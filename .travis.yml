@@ -1,5 +1,31 @@
-sudo: false
 language: ruby
+sudo: false
+
+bundler_args: --without test --jobs 3 --retry 3
+before_install:
+  - "gem install bundler"
+
+script:
+  - bundle exec rubocop
+  - bundle exec rspec
+
 rvm:
+  - 2.2.7
   - 2.3.4
-before_install: gem install bundler -v 1.14.6
+  - 2.4.1
+  - ruby-head
+
+gemfile:
+  - gemfiles/4.2.gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
+  - gemfiles/master.gemfile
+
+matrix:
+  allow_failures:
+    - gemfile: gemfiles/master.gemfile
+    - rvm: ruby-head
+  fast_finish: true
+
+notifications:
+  email: false

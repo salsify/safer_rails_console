@@ -1,28 +1,58 @@
-require 'active_support'
-require 'safer_rails_console/version'
+require 'active_support/configurable'
 require 'safer_rails_console/colors'
-require 'safer_rails_console/console'
+require 'safer_rails_console/railtie'
+require 'safer_rails_console/version'
+require 'safer_rails_console/patches/disable_sandbox_flag'
 
 module SaferRailsConsole
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+  class << self
+    def sandbox_environment?
+      config.sandbox_environments.include?(::Rails.env.downcase)
+    end
 
-  def self.configure
-    yield configuration
-  end
+    def sandbox_prompt?
+      config.sandbox_disable_methods.include?('prompt')
+    end
 
-  require 'safer_rails_console/railtie' if defined?(::Rails)
+    def warn_environment?
+      config.warn_environments.include?(::Rails.env.downcase)
+    end
+
+    def config
+      @config ||= Configuration.new
+    end
+  end
 
   class Configuration
     include ActiveSupport::Configurable
+    include SaferRailsConsole::Colors
 
-    config_accessor(:console)
-    config_accessor(:env_names)
-    config_accessor(:prompt_colors)
-    config_accessor(:sandbox)
-    config_accessor(:sandbox_disable_keyword)
-    config_accessor(:warn)
-    config_accessor(:warn_text)
+    CONFIG_DEFAULTS = {
+        console: 'irb', # irb, pry
+        environment_names: {
+            'development' => 'dev',
+            'staging' => 'staging',
+            'production' => 'prod'
+        },
+        environment_prompt_colors: {
+            'development' => GREEN,
+            'staging' => YELLOW,
+            'production' => RED
+        },
+        sandbox_environments: %w{production development},
+        prompt_to_disable_sandbox: false,
+        warn_environments: %w{production development},
+        warn_text: "WARNING: YOU ARE USING RAILS CONSOLE UNSANDBOXED!\n" \
+                   'Changing data can cause serious data loss. ' \
+                   'Make sure you know what you\'re doing.'
+    }.freeze
+
+    CONFIG_DEFAULTS.each do |name, value|
+      config_accessor(name) { value }
+    end
+
+    def set(**new_config)
+      config.merge!(new_config.select { |k, _v| CONFIG_DEFAULTS.key?(k) })
+    end
   end
 end
