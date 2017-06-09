@@ -1,19 +1,19 @@
-require 'active_support/configurable'
-require 'safer_rails_console/console'
-require 'safer_rails_console/colors'
-require 'safer_rails_console/railtie'
-require 'safer_rails_console/rails_version'
 require 'safer_rails_console/version'
-require 'safer_rails_console/patches/disable_sandbox_flag'
+require 'safer_rails_console/railtie'
+require 'safer_rails_console/colors'
 
 module SaferRailsConsole
   class << self
-    def sandbox_environment?
-      config.sandbox_environments.include?(::Rails.env.downcase)
+    def environment_name
+      config.environment_names.key?(::Rails.env.downcase) ? config.environment_names[::Rails.env.downcase] : 'unknown env'
     end
 
-    def sandbox_prompt?
-      config.sandbox_disable_methods.include?('prompt')
+    def prompt_color
+      config.environment_prompt_colors.key?(::Rails.env.downcase) ? config.environment_prompt_colors[::Rails.env.downcase] : SaferRailsConsole::Colors::NONE
+    end
+
+    def sandbox_environment?
+      config.sandbox_environments.include?(::Rails.env.downcase)
     end
 
     def warn_environment?
@@ -27,24 +27,23 @@ module SaferRailsConsole
 
   class Configuration
     include ActiveSupport::Configurable
-    include SaferRailsConsole::Colors
 
     CONFIG_DEFAULTS = {
-        console: 'irb', # irb, pry
+        console: 'irb',
         environment_names: {
             'development' => 'dev',
             'staging' => 'staging',
             'production' => 'prod'
         },
         environment_prompt_colors: {
-            'development' => GREEN,
-            'staging' => YELLOW,
-            'production' => RED
+            'development' => SaferRailsConsole::Colors::GREEN,
+            'staging' => SaferRailsConsole::Colors::YELLOW,
+            'production' => SaferRailsConsole::Colors::RED
         },
         sandbox_environments: %w{production development},
-        prompt_to_disable_sandbox: false,
-        warn_environments: %w{production development},
-        warn_text: "WARNING: YOU ARE USING RAILS CONSOLE UNSANDBOXED!\n" \
+        sandbox_prompt: false,
+        warn_environments: %w{production},
+        warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
                    'Changing data can cause serious data loss. ' \
                    'Make sure you know what you\'re doing.'
     }.freeze

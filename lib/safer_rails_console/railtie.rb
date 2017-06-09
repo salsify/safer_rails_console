@@ -1,4 +1,3 @@
-require 'active_support/ordered_options'
 require 'rails'
 require 'safer_rails_console'
 
@@ -13,14 +12,7 @@ module SaferRailsConsole
     end
 
     config.after_initialize do
-      monkey_patches
-    end
-
-    private
-
-    def monkey_patches
-      require 'safer_rails_console/patches/console'
-      require 'safer_rails_console/patches/sandbox'
+      require 'safer_rails_console/patches/railtie'
     end
   end
 end
