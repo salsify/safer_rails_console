@@ -1,5 +1,3 @@
-require 'safer_rails_console/console'
-
 module SaferRailsConsole
   module Patches
     module Sandbox
@@ -31,6 +29,6 @@ if SaferRailsConsole.config.sandbox_environments
     ::Rails::ConsoleHelper.ClassMethods.prepend(SaferRailsConsole::Patches::Sandbox::Rails::Console)
   else
     raise "No sandbox patch for rails version '#{::Rails::VERSION}' exists. "\
-          "Please disable safer_rails_console, use a supported version of rails, or disable SaferRailsConsole.config,sandbox_environments."
+          'Please disable safer_rails_console, use a supported version of rails, or disable SaferRailsConsole.config.sandbox_environments.'
   end
 end

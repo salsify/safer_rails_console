@@ -12,7 +12,7 @@ module SaferRailsConsole
     end
 
     config.after_initialize do
-      require 'safer_rails_console/patches/railtie'
+      require 'safer_rails_console/patches/railtie' if defined?(::Rails::Console)
     end
   end
 end

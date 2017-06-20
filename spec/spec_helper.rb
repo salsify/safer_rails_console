@@ -11,4 +11,8 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before :each do
+    allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development"))
+  end
 end

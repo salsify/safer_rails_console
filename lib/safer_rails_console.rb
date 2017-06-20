@@ -1,6 +1,8 @@
 require 'safer_rails_console/version'
 require 'safer_rails_console/railtie'
 require 'safer_rails_console/colors'
+require 'safer_rails_console/rails_version'
+require 'safer_rails_console/console'
 
 module SaferRailsConsole
   class << self
@@ -40,7 +42,7 @@ module SaferRailsConsole
             'staging' => SaferRailsConsole::Colors::YELLOW,
             'production' => SaferRailsConsole::Colors::RED
         },
-        sandbox_environments: %w{production development},
+        sandbox_environments: %w{production},
         sandbox_prompt: false,
         warn_environments: %w{production},
         warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
