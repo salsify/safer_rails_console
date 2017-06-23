@@ -4,7 +4,7 @@ module SaferRailsConsole
       include SaferRailsConsole::Colors
 
       def initialize_sandbox
-        enable_auto_rollback
+        require 'safer_rails_console/patches/sandbox'
       end
 
       def print_warning
@@ -15,12 +15,6 @@ module SaferRailsConsole
         puts "Defaulting the console into sandbox mode.\nType 'disable' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
         input = gets.strip
         input != 'disable'
-      end
-
-      private
-
-      def enable_auto_rollback
-        require 'safer_rails_console/patches/auto_rollback'
       end
     end
   end

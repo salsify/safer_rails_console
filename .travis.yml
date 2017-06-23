@@ -10,22 +10,22 @@ script:
   - bundle exec rspec
 
 rvm:
-  - 2.2.7
-  - 2.3.4
-  - 2.4.1
-  - ruby-head
+  - 2.2
+  - 2.3
+  - 2.4
 
 gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
-  - gemfiles/master.gemfile
 
 matrix:
   allow_failures:
-    - gemfile: gemfiles/master.gemfile
-    - rvm: ruby-head
+    - gemfile: gemfiles/4.1.gemfile
+      rvm: 2.4
+    - gemfile: gemfiles/5.1.gemfile
+
   fast_finish: true
 
 notifications:

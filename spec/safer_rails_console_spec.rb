@@ -1,5 +1,5 @@
 RSpec.describe SaferRailsConsole do
-  describe "env = default (development)" do
+  describe "RAILS_ENV=default (development)" do
     it ".environment_name" do
       expect(described_class.environment_name).to eq('dev')
     end
@@ -17,7 +17,7 @@ RSpec.describe SaferRailsConsole do
     end
   end
 
-  describe "env = production" do
+  describe "RAILS_ENV=production" do
     before do
       allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
     end

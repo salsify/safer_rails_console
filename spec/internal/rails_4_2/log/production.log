@@ -1,0 +1,4 @@
+D, [2017-06-23T17:42:30.251903 #54089] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+D, [2017-06-23T17:42:30.287155 #54089] DEBUG -- :   [1m[35m (0.1ms)[0m  rollback transaction
+D, [2017-06-23T17:42:31.909214 #54091] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+D, [2017-06-23T17:42:31.952170 #54091] DEBUG -- :   [1m[35m (0.1ms)[0m  rollback transaction

@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'mixlib/shellout'
 require 'safer_rails_console'
 
 RSpec.configure do |config|
@@ -10,6 +11,12 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before :all do
+    @rails_root = File.join(RSpec::Core::RubyProject.root, 'spec', 'internal', "rails_#{::Rails.version[0..2].tr('.', '_')}")
+    @rails_cmd = File.join(@rails_root, 'bin', 'rails')
+    @rails_env = { BUNDLE_GEMFILE: File.join(@rails_root, 'Gemfile') }
   end
 
   config.before :each do

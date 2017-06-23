@@ -64,32 +64,6 @@ module SaferRailsConsole
               set_options_env(arguments, options)
             end
           end
-
-          module Command
-            class << self
-              def find_by_namespace(namespace, command_name = nil)
-                if command_name && command_name.try(:eql?, 'console')
-                  require 'rails/commands/console/console_command'
-                  Rails::Command::ConsoleCommand.class_eval do
-                    class_option :'disable-sandbox', aliases: '-ds', type: :boolean,
-                                 desc: 'Explicitly disable sandbox mode.'
-                  end
-                end
-
-                super(namespace, command_name)
-              end
-
-              def sorted_groups
-                require 'rails/commands/console/console_command'
-                Rails::Command::ConsoleCommand.class_eval do
-                  class_option :'disable-sandbox', aliases: '-ds', type: :boolean,
-                               desc: 'Explicitly disable sandbox mode.'
-                end
-
-                super
-              end
-            end
-          end
         end
       end
     end
@@ -102,10 +76,10 @@ if SaferRailsConsole::RailsVersion.four_one? || SaferRailsConsole::RailsVersion.
 elsif SaferRailsConsole::RailsVersion.five_zero?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks50)
-elsif SaferRailsConsole::RailsVersion.five_one? || SaferRailsConsole::RailsVersion.five_two?
-  require 'rails/command'
-  ::Rails::Command.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::Command)
 else
-  raise "No boot/sandbox_flag patch for rails version '#{::Rails::VERSION}' exists. "\
-        "Please disable safer_rails_console, use a supported version of rails, or remove \"require 'safer_rails_console/patches/boot'\" from your application's 'config/boot.rb'."
+  unless SaferRailsConsole::RailsVersion.supported?
+    raise "No boot/sandbox_flag patch for rails version '#{::Rails.version}' exists. "\
+          "Please disable safer_rails_console, use a supported version of rails, "\
+          "or remove \"require 'safer_rails_console/patches/boot'\" from your application's 'config/boot.rb'."
+  end
 end
