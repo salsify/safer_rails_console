@@ -1,4 +1,4 @@
-RSpec.describe "Integration: patches/railtie" do
+describe "Integration: patches/railtie" do
   let(:cmd_stdout) do
     cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env, input: 'exit')
     cmd.run_command

@@ -1,4 +1,4 @@
-RSpec.describe SaferRailsConsole::Console do
+describe SaferRailsConsole::Console do
   context ".initialize_sandbox" do
     it "loads sandbox patches" do
       expect(defined?(SaferRailsConsole::Patches::Sandbox)).to be_nil

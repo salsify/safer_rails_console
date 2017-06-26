@@ -1,4 +1,4 @@
-RSpec.describe "Integration: patches/sandbox" do
+describe "Integration: patches/sandbox" do
   let(:cmd) do
     cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --sandbox", env: @rails_env, input: console_commands.join("\n"))
     cmd.run_command

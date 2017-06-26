@@ -1,4 +1,4 @@
-RSpec.describe "Integration: consoles/irb" do
+describe "Integration: consoles/irb" do
   let(:app_name) { "rails#{::Rails.version[0..2].tr('.', '')}" }
   let(:cmd_stdout) do
     cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env, input: 'exit')

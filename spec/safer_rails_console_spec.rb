@@ -1,4 +1,4 @@
-RSpec.describe SaferRailsConsole do
+describe SaferRailsConsole do
   describe "RAILS_ENV=default (development)" do
     it ".environment_name" do
       expect(described_class.environment_name).to eq('dev')

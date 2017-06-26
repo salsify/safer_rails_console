@@ -1,4 +1,4 @@
-RSpec.describe "Integration: patches/boot" do
+describe "Integration: patches/boot" do
   context "sandbox_flag" do
     let(:cmd_stdout) do
       cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --help")
