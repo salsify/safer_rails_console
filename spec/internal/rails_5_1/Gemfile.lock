@@ -2,7 +2,7 @@ PATH
   remote: ../../..
   specs:
     safer_rails_console (0.1.0)
-      rails (>= 4.1, <= 5.2)
+      rails (>= 4.1, < 5.2)
 
 GEM
   remote: https://rubygems.org/
