@@ -1,12 +1,10 @@
 RSpec.describe "Integration: consoles/irb" do
-  before(:all) do
+  let(:app_name) { "rails#{::Rails.version[0..2].tr('.', '')}" }
+  let(:cmd_stdout) do
     cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env, input: 'exit')
     cmd.run_command
-    @cmd_stdout = cmd.stdout
+    cmd.stdout
   end
-
-  let(:app_name) { "rails#{::Rails.version[0..2].tr('.', '')}" }
-  let(:cmd_stdout) { @cmd_stdout }
 
   it "displays a colored prompt" do
     expect(cmd_stdout).to include('[32m')

@@ -3,16 +3,16 @@ sudo: false
 
 bundler_args: --without test --jobs 3 --retry 3
 before_install:
-  - "gem install bundler"
+  - gem install bundler
 
 script:
   - bundle exec rubocop
   - bundle exec rspec
 
 rvm:
-  - 2.2
-  - 2.3
-  - 2.4
+  - 2.2.7
+  - 2.3.4
+  - 2.4.1
 
 gemfile:
   - gemfiles/4.1.gemfile

@@ -1,0 +1,16 @@
+D, [2017-06-26T10:27:17.692631 #37358] DEBUG -- :   [1m[35m (0.5ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:27:17.785755 #37358] DEBUG -- :   [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:27:31.970641 #37379] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:27:32.008940 #37379] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:30:33.793440 #42288] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:30:33.826888 #42288] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:30:34.992620 #42291] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:30:35.026954 #42291] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:30:53.053548 #42772] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:30:53.086569 #42772] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:30:54.240423 #42775] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:30:54.273985 #42775] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:31:11.022469 #43264] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:31:11.055070 #43264] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+D, [2017-06-26T10:31:12.128122 #43267] DEBUG -- :   [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+D, [2017-06-26T10:31:12.160851 #43267] DEBUG -- :   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m

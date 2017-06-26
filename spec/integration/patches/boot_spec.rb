@@ -22,7 +22,7 @@ RSpec.describe "Integration: patches/boot" do
       end
 
       it "explicitly disables the sandbox if it would be enabled automatically" do
-        expect(cmd_stdout).to_not include('Any modifications you make will be rolled back on exit')
+        expect(cmd_stdout).not_to include('Any modifications you make will be rolled back on exit')
       end
     end
 

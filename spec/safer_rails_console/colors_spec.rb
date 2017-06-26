@@ -9,7 +9,7 @@ RSpec.describe SaferRailsConsole::Colors do
     expect(described_class::CYAN).to eq(36)
     expect(described_class::WHITE).to eq(37)
   end
-  
+
   context "#color_text" do
     let(:sample_text) { 'some input' }
     let(:expected_output) { "\e[#{SaferRailsConsole::Colors::RED}m#{sample_text}\e[0m" }

@@ -16,4 +16,3 @@ IRB.conf[:PROMPT][:RAILS_ENV] = {
 }
 
 IRB.conf[:PROMPT_MODE] = :RAILS_ENV
-

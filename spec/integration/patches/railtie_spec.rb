@@ -23,14 +23,15 @@ RSpec.describe "Integration: patches/railtie" do
       let(:specified_env) { 'development' }
 
       it "does not automatically enable sandbox" do
-        expect(cmd_stdout).to_not include('Any modifications you make will be rolled back on exit')
+        expect(cmd_stdout).not_to include('Any modifications you make will be rolled back on exit')
       end
 
       it "does not warn the user of danger" do
-        expect(cmd_stdout).to_not include('WARNING')
+        expect(cmd_stdout).not_to include('WARNING')
       end
     end
 
+    # TODO: Fix Rails 5.1 support
     context "RAILS_ENV=production" do
       let(:specified_env) { 'production' }
 

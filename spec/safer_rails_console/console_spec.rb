@@ -5,7 +5,7 @@ RSpec.describe SaferRailsConsole::Console do
 
       suppress(Exception) { described_class.initialize_sandbox }
 
-      expect(defined?(SaferRailsConsole::Patches::Sandbox)).to_not be_nil
+      expect(defined?(SaferRailsConsole::Patches::Sandbox)).not_to be_nil
     end
   end
 

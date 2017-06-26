@@ -20,6 +20,6 @@ RSpec.configure do |config|
   end
 
   config.before :each do
-    allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development"))
+    allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
   end
 end

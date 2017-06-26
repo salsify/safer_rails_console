@@ -19,7 +19,7 @@ RSpec.describe SaferRailsConsole do
 
   describe "RAILS_ENV=production" do
     before do
-      allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
+      allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
     end
 
     it ".environment_name" do

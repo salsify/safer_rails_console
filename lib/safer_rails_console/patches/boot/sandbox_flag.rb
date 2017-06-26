@@ -79,7 +79,7 @@ elsif SaferRailsConsole::RailsVersion.five_zero?
 else
   unless SaferRailsConsole::RailsVersion.supported?
     raise "No boot/sandbox_flag patch for rails version '#{::Rails.version}' exists. "\
-          "Please disable safer_rails_console, use a supported version of rails, "\
+          'Please disable safer_rails_console, use a supported version of rails, '\
           "or remove \"require 'safer_rails_console/patches/boot'\" from your application's 'config/boot.rb'."
   end
 end

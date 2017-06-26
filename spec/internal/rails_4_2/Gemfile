@@ -5,4 +5,4 @@ gem 'rails', '~> 4.2.8'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-gem 'safer_rails_console', :path => '../../../'
+gem 'safer_rails_console', path: '../../../'
