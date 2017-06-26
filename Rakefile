@@ -5,7 +5,3 @@ require 'rails'
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
-
-task :install_deps do
-
-end

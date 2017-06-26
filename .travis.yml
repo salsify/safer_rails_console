@@ -27,6 +27,3 @@ matrix:
     - gemfile: gemfiles/5.1.gemfile
 
   fast_finish: true
-
-notifications:
-  email: false
