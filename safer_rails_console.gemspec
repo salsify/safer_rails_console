@@ -1,36 +1,43 @@
 # coding: utf-8
-lib = File.expand_path("../lib", __FILE__)
+
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "safer_rails_console/version"
+require 'safer_rails_console/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "safer_rails_console"
+  spec.name          = 'safer_rails_console'
   spec.version       = SaferRailsConsole::VERSION
-  spec.authors       = ["Timothy Su"]
-  spec.email         = ["timothysu@users.noreply.github.com"]
+  spec.authors       = ['Salsify, Inc']
+  spec.email         = ['engineering@salsify.com']
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
+  spec.summary       = 'Make rails console less dangerous!'
+  spec.description   = 'This gem makes console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and disabling external connections, job queueing, etc.'
+  spec.homepage      = 'https://github.com/salsify/safer_rails_console'
+  spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+    raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = "exe"
+  spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency 'appraisal', '~> 2.2'
+  spec.add_development_dependency 'bundler', '~> 1.15'
+  spec.add_development_dependency 'mixlib-shellout', '~> 2.2'
+  spec.add_development_dependency 'overcommit', '~> 0.39.0'
+  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rspec', '~> 3.6'
+  spec.add_development_dependency 'salsify_rubocop', '~> 0.48.0'
+  spec.add_development_dependency 'sqlite3', '~> 1.3.13'
+  spec.add_development_dependency 'wwtd', '~> 1.3'
+  spec.add_runtime_dependency 'rails', '>= 4.1', '< 5.2'
 end
