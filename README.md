@@ -1,6 +1,6 @@
 # SaferRailsConsole
 
-This gem makes console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and disabling external connections, job queueing, etc.
+This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and allowing read-only external connections (disables job queueing, non-GET requests, etc.)
 
 ## Installation
 
@@ -12,7 +12,7 @@ gem 'safer_rails_console'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -20,51 +20,65 @@ Or install it yourself as:
 
 ## Usage
 
-This gem is autoloaded via Railties.  The following defaults can be configured from `environments` or `application.rb`:
+Add the following line to the end of 'config/boot.rb' in your Rails application.
 ```ruby
-# Set what console is used. Currently, only 'irb' is supported. 'pry' and other consoles are to-be added.
-config.safer_rails_console.console = 'irb'
- 
-# Mapping environments to shortened names. `false` to disable.
-config.safer_rails_console.env_names = {
-                                         'development' => 'dev',
-                                         'staging' => 'staging',
-                                         'production' => 'prod'
-                                       }
-                                       
-# Mapping environments to console prompt colors. See colors.rb for colors. `false` to disable.
-config.safer_rails_console.prompt_colors = {
-                                             'development' => GREEN,
-                                             'staging' => YELLOW,
-                                             'production' => RED
-                                           }
-                                           
-# Set environments which should default to sandbox. `false` to disable.
-config.safer_rails_console.sandbox = ['production']
- 
-# Set the keyword users need to enter to disable sandbox mode upon console entry for the specified environments.
-config.safer_rails_console.sandbox_disable_keyword = 'production'
- 
-# Set environments that should have a warning. `false` to disable.
-config.safer_rails_console.warn = ['production']
- 
-# Set warning message that should appear in the specified environments.
-config.safer_rails_console.warn_text = "WARNING: YOU ARE USING RAILS CONSOLE UNSANDBOXED!\n" \
-                                       'Changing data can cause serious data loss. ' \
-                                       'Make sure you know what you\'re doing.'
+require 'safer_rails_console/patches/boot'
 ```
 
-The quickest way to demo this gem is to add 'development' to `config.safer_rails_console.sandbox` and `config.safer_rails_console.warn`.
+Then, the quickest way to demo this gem is to add `config.safer_rails_console.sandbox_environments = %w{production development}` to 'application.rb' and run `bundle exec rails console`.
+
+A way to explicitly enable or disable the sandbox is added to Rails console as a flag (with an optional prompt upon a new console session - see config below).
+```ruby
+bundle exec rails console --help
+
+    -s, --[no-]sandbox               Explicitly enable/disable sandbox mode.
+    -e, --environment=name           Specifies the environment to run this console under (test/development/production).
+                                     Default: development
+        --debugger                   Enable the debugger.
+```
+
+This gem is autoloaded via Railties.  The following defaults can be configured from 'environments' or 'application.rb':
+```ruby
+# Set what console is used. Currently, only 'irb' is supported. 'pry' and other consoles are to be added.
+config.safer_rails_console.console: 'irb'
+
+# Mapping environments to shortened names. `false` to disable.
+config.safer_rails_console.environment_names: {
+                                                'development' => 'dev',
+                                                'staging' => 'staging',
+                                                'production' => 'prod'
+                                              }
+# Mapping environments to console prompt colors. See colors.rb for colors. `false` to disable.
+config.safer_rails_console.environment_prompt_colors: {
+                                                        'development' => SaferRailsConsole::Colors::GREEN,
+                                                        'staging' => SaferRailsConsole::Colors::YELLOW,
+                                                        'production' => SaferRailsConsole::Colors::RED
+                                                      }
+
+# Set environments which should default to sandbox. `false` to disable.
+config.safer_rails_console.sandbox_environments: %w{production}
+
+# Set 'true' to have a prompt that asks the user if sandbox should be enabled/disabled if it was not explicitly specified (via. --[no-]sandbox)
+config.safer_rails_console.sandbox_prompt: false
+
+# Set environments that should have a warning. `false` to disable.
+config.safer_rails_console.warn_environments: %w{production}
+
+# Set warning message that should appear in the specified environments.
+config.safer_rails_console.warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
+                                      'Changing data can cause serious data loss. ' \
+                                      'Make sure you know what you\'re doing.'
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `wwtd` to simulate the entire build matrix (ruby version / rails version) or `appraisal` to test against each supported rails version with your active ruby version. 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/safer_rails_console. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/salsify/safer_rails_console. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
