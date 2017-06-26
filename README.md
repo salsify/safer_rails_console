@@ -29,7 +29,7 @@ Then, the quickest way to demo this gem is to add `config.safer_rails_console.sa
 
 A way to explicitly enable or disable the sandbox is added to Rails console as a flag (with an optional prompt upon a new console session - see config below).
 ```ruby
-bundle exec rails console --help
+bundle exec rails console --help  
 
     -s, --[no-]sandbox               Explicitly enable/disable sandbox mode.
     -e, --environment=name           Specifies the environment to run this console under (test/development/production).
@@ -40,29 +40,29 @@ bundle exec rails console --help
 This gem is autoloaded via Railties.  The following defaults can be configured from 'environments' or 'application.rb':
 ```ruby
 # Set what console is used. Currently, only 'irb' is supported. 'pry' and other consoles are to be added.
-config.safer_rails_console.console: 'irb'
+config.safer_rails_console.console: 'irb'  
 
 # Mapping environments to shortened names. `false` to disable.
 config.safer_rails_console.environment_names: {
                                                 'development' => 'dev',
                                                 'staging' => 'staging',
                                                 'production' => 'prod'
-                                              }
+                                              }  
 # Mapping environments to console prompt colors. See colors.rb for colors. `false` to disable.
 config.safer_rails_console.environment_prompt_colors: {
                                                         'development' => SaferRailsConsole::Colors::GREEN,
                                                         'staging' => SaferRailsConsole::Colors::YELLOW,
                                                         'production' => SaferRailsConsole::Colors::RED
-                                                      }
+                                                      }  
 
 # Set environments which should default to sandbox. `false` to disable.
-config.safer_rails_console.sandbox_environments: %w{production}
+config.safer_rails_console.sandbox_environments: %w{production}  
 
 # Set 'true' to have a prompt that asks the user if sandbox should be enabled/disabled if it was not explicitly specified (via. --[no-]sandbox)
-config.safer_rails_console.sandbox_prompt: false
+config.safer_rails_console.sandbox_prompt: false  
 
 # Set environments that should have a warning. `false` to disable.
-config.safer_rails_console.warn_environments: %w{production}
+config.safer_rails_console.warn_environments: %w{production}  
 
 # Set warning message that should appear in the specified environments.
 config.safer_rails_console.warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
