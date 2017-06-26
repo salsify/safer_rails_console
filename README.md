@@ -1,4 +1,4 @@
-# SaferRailsConsole
+# SaferRailsConsole [![Build Status](https://travis-ci.org/salsify/safer_rails_console.svg?branch=master)](https://travis-ci.org/salsify/safer_rails_console)
 
 This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and allowing read-only external connections (disables job queueing, non-GET requests, etc.)
 

@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['engineering@salsify.com']
 
   spec.summary       = 'Make rails console less dangerous!'
-  spec.description   = 'This gem makes console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and disabling external connections, job queueing, etc.'
+  spec.description   = 'This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and allowing read-only external connections (disables job queueing, non-GET requests, etc.)'
   spec.homepage      = 'https://github.com/salsify/safer_rails_console'
   spec.license       = 'MIT'
 
