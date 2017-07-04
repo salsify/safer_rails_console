@@ -7,6 +7,9 @@ describe SaferRailsConsole::Colors do
     ClassWithColors
   end
 
+  let(:sample_text) { 'some input' }
+  let(:expected_output) { "\e[#{described_class::RED}m#{sample_text}\e[0m" }
+
   specify "color constants are defined" do
     expect(described_class::NONE).to eq(0)
     expect(described_class::RED).to eq(31)
@@ -18,10 +21,13 @@ describe SaferRailsConsole::Colors do
     expect(described_class::WHITE).to eq(37)
   end
 
-  context "#color_text" do
-    let(:sample_text) { 'some input' }
-    let(:expected_output) { "\e[#{described_class::RED}m#{sample_text}\e[0m" }
+  context ".color_text" do
+    it "outputs colored text" do
+      expect(described_class.color_text(sample_text, described_class::RED)).to eq(expected_output)
+    end
+  end
 
+  context "#color_text" do
     it "is defined when included in a class" do
       expect(class_with_colors.method_defined?(:color_text)).to eq(true)
     end

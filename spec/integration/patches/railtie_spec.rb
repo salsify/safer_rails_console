@@ -5,12 +5,6 @@ describe "Integration: patches/railtie" do
     cmd.stdout
   end
 
-  context "console" do
-    it "loads the console config into the selected console" do
-      expect(cmd_stdout).to include('sandbox')
-    end
-  end
-
   context "sandbox" do
     let(:console_commands) { ['exit'] }
     let(:cmd_stdout) do

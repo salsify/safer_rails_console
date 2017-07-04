@@ -11,12 +11,16 @@ module SaferRailsConsole
             options = args.last
 
             options[:sandbox] = SaferRailsConsole.sandbox_environment? if options[:sandbox].nil?
-            options[:sandbox] = SaferRailsConsole::Console.sandbox_prompt_user_input if SaferRailsConsole.sandbox_environment? && SaferRailsConsole.config.sandbox_prompt
-
-            SaferRailsConsole::Console.initialize_sandbox if options[:sandbox]
-            SaferRailsConsole::Console.print_warning if SaferRailsConsole.warn_environment?
+            options[:sandbox] = sandbox_user_prompt if SaferRailsConsole.sandbox_environment? && SaferRailsConsole.config.sandbox_prompt
 
             super *args
+          end
+
+          def sandbox_user_prompt
+            puts "Defaulting the console into sandbox mode.\n"\
+                 "Type 'disable' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
+            input = gets.strip
+            input != 'disable'
           end
         end
       end
@@ -24,7 +28,9 @@ module SaferRailsConsole
   end
 end
 
-if SaferRailsConsole::RailsVersion.supported?
+if defined?(Spring) && SaferRailsConsole.sandbox_environment?
+  puts "Warning: environment-based automatic sandboxing does not work with Spring (from 'safer_rails_console/patches/railtie/sandbox')" # rubocop:disable Rails/Output
+elsif SaferRailsConsole::RailsVersion.supported?
   ::Rails::Console.singleton_class.prepend(SaferRailsConsole::Patches::Sandbox::Rails::Console)
 else
   raise "No sandbox patch for rails version '#{::Rails.version}' exists. "\
