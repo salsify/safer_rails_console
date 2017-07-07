@@ -27,9 +27,13 @@ module SaferRailsConsole
   end
 end
 
-if defined?(Spring) && SaferRailsConsole.sandbox_environment?
-  puts "Warning: environment-based automatic sandboxing does not work with Spring (from 'safer_rails_console/patches/railtie/sandbox')" # rubocop:disable Rails/Output
-elsif SaferRailsConsole::RailsVersion.supported?
+if SaferRailsConsole::RailsVersion.supported?
+  if SaferRailsConsole::RailsVersion.five_one?
+    require 'rails/commands/console/console_command'
+  else
+    require 'rails/commands/console'
+  end
+
   ::Rails::Console.singleton_class.prepend(SaferRailsConsole::Patches::Sandbox::Rails::Console)
 else
   raise "No sandbox patch for rails version '#{::Rails.version}' exists. "\
