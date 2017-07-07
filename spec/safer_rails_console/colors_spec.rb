@@ -21,12 +21,6 @@ describe SaferRailsConsole::Colors do
     expect(described_class::WHITE).to eq(37)
   end
 
-  context ".color_text" do
-    it "outputs colored text" do
-      expect(described_class.color_text(sample_text, described_class::RED)).to eq(expected_output)
-    end
-  end
-
   context "#color_text" do
     it "is defined when included in a class" do
       expect(class_with_colors.method_defined?(:color_text)).to eq(true)
