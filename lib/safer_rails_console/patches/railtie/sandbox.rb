@@ -17,8 +17,7 @@ module SaferRailsConsole
           end
 
           def sandbox_user_prompt
-            puts "Defaulting the console into sandbox mode.\n"\
-                 "Type 'disable' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
+            puts "Defaulting the console into sandbox mode.\nType 'disable' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
             input = gets.strip
             input != 'disable'
           end

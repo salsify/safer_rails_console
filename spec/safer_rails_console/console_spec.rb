@@ -16,4 +16,12 @@ describe SaferRailsConsole::Console do
       expect { described_class.print_warning }.to output(expected_output).to_stdout
     end
   end
+
+  context ".load_config" do
+    before { described_class.load_config }
+
+    it "adds console config file to ARGV" do
+      expect(ARGV.any? { |arg| arg.include?('irb.rb') }).to be(true)
+    end
+  end
 end
