@@ -16,6 +16,12 @@ module SaferRailsConsole
         gem_root = gem.gem_dir
         ARGV.push '-r', File.join(gem_root, 'lib', 'safer_rails_console', 'consoles', "#{SaferRailsConsole.config.console}.rb")
       end
+
+      def sandbox_user_prompt
+        puts "Defaulting the console into sandbox mode.\nType 'disable' to disable. Anything else will begin a sandboxed session:" # rubocop:disable Rails/Output
+        input = gets.strip
+        input != 'disable'
+      end
     end
   end
 end
