@@ -25,12 +25,12 @@ describe SaferRailsConsole::Console do
     end
   end
 
-  context ".sandbox_prompt_user_input" do
+  context ".sandbox_user_prompt" do
     context "input: 'disable'" do
       before { allow(described_class).to receive(:gets).and_return('disable') }
 
       it "disables the sandbox" do
-        expect(described_class.sandbox_prompt_user_input).to eq(false)
+        expect(described_class.sandbox_user_prompt).to eq(false)
       end
     end
 
@@ -38,7 +38,7 @@ describe SaferRailsConsole::Console do
       before { allow(described_class).to receive(:gets).and_return('something else') }
 
       it "enables the sandbox" do
-        expect(described_class.sandbox_prompt_user_input).to eq(true)
+        expect(described_class.sandbox_user_prompt).to eq(true)
       end
     end
   end
