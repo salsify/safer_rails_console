@@ -12,7 +12,13 @@ module SaferRailsConsole
     end
 
     config.after_initialize do
-      require 'safer_rails_console/patches/railtie' if defined?(::Rails::Console)
+      require 'safer_rails_console/patches/railtie'
+    end
+
+    console do
+      SaferRailsConsole::Console.initialize_sandbox if ::Rails.application.sandbox
+      SaferRailsConsole::Console.print_warning if SaferRailsConsole.warn_environment?
+      SaferRailsConsole::Console.load_config
     end
   end
 end
