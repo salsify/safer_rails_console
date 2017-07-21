@@ -81,7 +81,7 @@ elsif SaferRailsConsole::RailsVersion.five_one?
   require 'rails/commands/console/console_command'
   ::Rails::Command::ConsoleCommand.class_eval do
     remove_class_option :sandbox
-    class_option :sandbox, aliases: "-s", type: :boolean, desc: "Explicitly enable/disable sandbox mode."
+    class_option :sandbox, aliases: '-s', type: :boolean, desc: 'Explicitly enable/disable sandbox mode.'
   end
 else
   unless SaferRailsConsole::RailsVersion.supported?
