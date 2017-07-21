@@ -1,6 +1,6 @@
 include SaferRailsConsole::Colors
 
-app_name = ::Rails.application.class.parent.to_s.downcase
+app_name = ::Rails.application.class.parent.to_s.underscore.dasherize
 env_name = SaferRailsConsole.environment_name
 status = ::Rails.application.sandbox ? 'sandboxed' : 'unsandboxed'
 color = SaferRailsConsole.prompt_color
