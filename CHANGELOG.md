@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.1.2](https://github.com/salsify/safer_rails_console/tree/v0.1.2) (2017-07-21)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.1...v0.1.2)
+
+**Merged pull requests:**
+
+- Dasherize the app name given CamelCase [\#10](https://github.com/salsify/safer_rails_console/pull/10) ([timothysu](https://github.com/timothysu))
+
 ## [v0.1.1](https://github.com/salsify/safer_rails_console/tree/v0.1.1) (2017-07-07)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.0...v0.1.1)
 
