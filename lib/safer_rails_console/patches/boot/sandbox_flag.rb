@@ -79,6 +79,7 @@ elsif SaferRailsConsole::RailsVersion.five_zero?
 elsif SaferRailsConsole::RailsVersion.five_one?
   require 'rails/command'
   require 'rails/commands/console/console_command'
+  # Rails 5.1 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
   ::Rails::Command::ConsoleCommand.class_eval do
     remove_class_option :sandbox
     class_option :sandbox, aliases: '-s', type: :boolean, desc: 'Explicitly enable/disable sandbox mode.'
