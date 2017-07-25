@@ -4,10 +4,6 @@ module SaferRailsConsole
       module Rails
         module Console
           def start(*args)
-            if SaferRailsConsole::RailsVersion.five_one? && SaferRailsConsole.sandbox_environment?
-              # TODO: Fix Rails 5.1 support
-            end
-
             options = args.last
 
             options[:sandbox] = SaferRailsConsole.sandbox_environment? if options[:sandbox].nil?

@@ -25,7 +25,6 @@ describe "Integration: patches/railtie" do
       end
     end
 
-    # TODO: Fix Rails 5.1 support
     context "RAILS_ENV=production" do
       let(:specified_env) { 'production' }
 

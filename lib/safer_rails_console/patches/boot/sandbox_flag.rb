@@ -76,6 +76,14 @@ if SaferRailsConsole::RailsVersion.four_one? || SaferRailsConsole::RailsVersion.
 elsif SaferRailsConsole::RailsVersion.five_zero?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks50)
+elsif SaferRailsConsole::RailsVersion.five_one?
+  require 'rails/command'
+  require 'rails/commands/console/console_command'
+  # Rails 5.1 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
+  ::Rails::Command::ConsoleCommand.class_eval do
+    remove_class_option :sandbox
+    class_option :sandbox, aliases: '-s', type: :boolean, desc: 'Explicitly enable/disable sandbox mode.'
+  end
 else
   unless SaferRailsConsole::RailsVersion.supported?
     raise "No boot/sandbox_flag patch for rails version '#{::Rails.version}' exists. "\

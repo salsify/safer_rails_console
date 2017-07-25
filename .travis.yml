@@ -24,6 +24,5 @@ matrix:
   allow_failures:
     - gemfile: gemfiles/4.1.gemfile
       rvm: 2.4.1
-    - gemfile: gemfiles/5.1.gemfile
 
   fast_finish: true
