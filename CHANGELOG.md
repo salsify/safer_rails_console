@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.1.3](https://github.com/salsify/safer_rails_console/tree/v0.1.3) (2017-08-02)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.2...v0.1.3)
+
+**Fixed bugs:**
+
+- Auto-sandboxing on environment does not work in Rails 5.1 [\#4](https://github.com/salsify/safer_rails_console/issues/4)
+
+**Merged pull requests:**
+
+- Default sandbox flag to nil in Rails 5.1 [\#12](https://github.com/salsify/safer_rails_console/pull/12) ([timothysu](https://github.com/timothysu))
+- Resolve sqlite3 dependency warning [\#11](https://github.com/salsify/safer_rails_console/pull/11) ([timothysu](https://github.com/timothysu))
+
 ## [v0.1.2](https://github.com/salsify/safer_rails_console/tree/v0.1.2) (2017-07-21)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.1...v0.1.2)
 
