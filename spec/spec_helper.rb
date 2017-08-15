@@ -13,7 +13,7 @@ RSpec.configure do |config|
   rails_root = File.join(RSpec::Core::RubyProject.root, 'spec', 'internal', "rails_#{::Rails.version[0..2].tr('.', '_')}")
 
   config.before :suite do
-    system("cd #{rails_root} && rake db:drop && rake db:setup")
+    system("cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
   end
 
   config.before :all do
