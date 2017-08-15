@@ -6,12 +6,18 @@ describe "Integration: patches/sandbox" do
   end
 
   context "auto_rollback" do
-    let(:console_commands) { ['Model.first', 'exit'] }
+    let(:console_commands) { ['Model.first', 'Model.where(invalid: :statement)','exit'] }
 
     it "automatically executes rollback and begins a new transaction after executing a invalid SQL statement" do
-      expect(cmd[:stdout]).to include('ActiveRecord::StatementInvalid')
-      expect(cmd[:stderr].scan('rollback transaction').count).to eq(2)
-      expect(cmd[:stderr].scan('begin transaction').count).to eq(1)
+      if ENV['CI']
+        expect(cmd[:stdout]).to include('ActiveRecord::StatementInvalid')
+        expect(cmd[:stderr].scan('rollback transaction').count).to eq(2)
+        expect(cmd[:stderr].scan('begin transaction').count).to eq(1)
+      else
+        expect(cmd[:stdout]).to include('ActiveRecord::StatementInvalid')
+        expect(cmd[:stderr].scan('rollback transaction').count).to eq(1)
+        expect(cmd[:stderr]).not_to include('begin transaction')
+      end
     end
   end
 end

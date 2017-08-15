@@ -1,9 +1,20 @@
 language: ruby
 sudo: false
 
+services:
+  - postgresql
+
 bundler_args: --without test --jobs 3 --retry 3
 before_install:
   - gem install bundler
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp spec/internal/database.yml.travis spec/internal/rails_4_1/config/database.yml
+  - cp spec/internal/database.yml.travis spec/internal/rails_4_2/config/database.yml
+  - cp spec/internal/database.yml.travis spec/internal/rails_5_0/config/database.yml
+  - cp spec/internal/database.yml.travis spec/internal/rails_5_1/config/database.yml
+  - rake db:setup
 
 script:
   - bundle exec rubocop
