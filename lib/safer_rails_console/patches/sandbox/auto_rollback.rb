@@ -4,9 +4,20 @@ module SaferRailsConsole
       module AutoRollback
         module ActiveRecord
           module ConnectionAdapters
-            module AbstractAdapter
+            module AbstractAdapter4
               def log(sql, name = 'SQL', binds = [], statement_name = nil)
-                super(sql, name, binds, statement_name) { yield }
+                super
+              rescue => e
+                connection = ::ActiveRecord::Base.connection
+                connection.rollback_db_transaction
+                connection.begin_db_transaction
+                raise e
+              end
+            end
+
+            module AbstractAdapter5
+              def log(sql, name = 'SQL', binds = [], type_casted_binds = [], statement_name = nil)
+                super
               rescue => e
                 connection = ::ActiveRecord::Base.connection
                 connection.rollback_db_transaction
@@ -21,4 +32,8 @@ module SaferRailsConsole
   end
 end
 
-::ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::AbstractAdapter)
+if SaferRailsConsole::RailsVersion.four_one? || SaferRailsConsole::RailsVersion.four_two?
+  ::ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::AbstractAdapter4)
+else
+  ::ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::AbstractAdapter5)
+end
