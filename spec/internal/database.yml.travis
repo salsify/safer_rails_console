@@ -13,4 +13,4 @@ test:
 
 production:
   <<: *default
-  database: travis_ci_production
+  database: travis_ci_test
