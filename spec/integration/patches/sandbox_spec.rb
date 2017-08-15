@@ -9,6 +9,8 @@ describe "Integration: patches/sandbox" do
     let(:console_commands) { ['Model.first', 'Model.where(invalid: :statement)','exit'] }
 
     it "automatically executes rollback and begins a new transaction after executing a invalid SQL statement" do
+      # Currently, postgres is used for CI and local development is done against SQLite3
+      # TODO: Use 'dotenv' to allow developers to specify a database type
       if ENV['CI']
         expect(cmd[:stdout]).to include('ActiveRecord::StatementInvalid')
         expect(cmd[:stderr].scan('rollback transaction').count).to eq(2)
