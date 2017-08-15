@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.1.4](https://github.com/salsify/safer_rails_console/tree/v0.1.4) (2017-08-15)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.3...v0.1.4)
+
+**Fixed bugs:**
+
+- Invalid cached and prepared statements do not trigger a automatic rollback with PostgreSQL [\#16](https://github.com/salsify/safer_rails_console/issues/16)
+- safer\_rails\_console doesn't work in alerts service rails console mode in sandbox mode [\#13](https://github.com/salsify/safer_rails_console/issues/13)
+
+**Merged pull requests:**
+
+- Patch PostgreSQLAdapter\#execute\_and\_clear instead of AbstractAdapter\#log for auto-rollback [\#15](https://github.com/salsify/safer_rails_console/pull/15) ([timothysu](https://github.com/timothysu))
+
 ## [v0.1.3](https://github.com/salsify/safer_rails_console/tree/v0.1.3) (2017-08-02)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.2...v0.1.3)
 
