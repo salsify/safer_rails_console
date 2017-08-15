@@ -1,14 +1,16 @@
 default: &default
   adapter: postgresql
-  database: travis_ci_test
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
+  database: travis_ci_development
 
 test:
   <<: *default
+  database: travis_ci_test
 
 production:
   <<: *default
+  database: travis_ci_production
