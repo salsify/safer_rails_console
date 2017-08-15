@@ -14,6 +14,7 @@ RSpec.configure do |config|
     @rails_root = File.join(RSpec::Core::RubyProject.root, 'spec', 'internal', "rails_#{::Rails.version[0..2].tr('.', '_')}")
     @rails_cmd = File.join(@rails_root, 'bin', 'rails')
     @rails_env = { BUNDLE_GEMFILE: File.join(@rails_root, 'Gemfile') }
+    system("cd #{@rails_root} && rake db:setup") if ENV['CI']
   end
 
   config.before :each do

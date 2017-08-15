@@ -14,7 +14,6 @@ before_script:
   - cp spec/internal/database.yml.travis spec/internal/rails_4_2/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_0/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_1/config/database.yml
-  - rake db:setup
 
 script:
   - bundle exec rubocop
