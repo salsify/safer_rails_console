@@ -22,4 +22,22 @@ describe "Integration: patches/sandbox" do
       end
     end
   end
+
+  context "read_only" do
+    let(:console_commands) { ['Model.create!', 'exit'] }
+
+    it "enforces a read_only transaction and lets the user know that an operation could not be completed" do
+      # Currently, postgres is used for CI and local development is done against SQLite3
+      # TODO: Use 'dotenv' to allow developers to specify a database type
+      if ENV['CI']
+        expect(cmd[:stderr]).to include('SET TRANSACTION READ ONLY')
+        expect(cmd[:stdout]).to include('ActiveRecord::StatementInvalid')
+        expect(cmd[:stdout]).to include('An operation could not be completed due to read-only mode.')
+      else
+        expect(cmd[:stderr]).not_to include('SET TRANSACTION READ ONLY')
+        expect(cmd[:stdout]).not_to include('ActiveRecord::StatementInvalid')
+        expect(cmd[:stdout]).not_to include('An operation could not be completed due to read-only mode.')
+      end
+    end
+  end
 end
