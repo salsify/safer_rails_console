@@ -7,7 +7,7 @@ module SaferRailsConsole
             module PostgreSQLAdapter
               def begin_db_transaction
                 super
-                execute "SET TRANSACTION READ ONLY"
+                execute 'SET TRANSACTION READ ONLY'
               end
             end
           end
@@ -22,5 +22,5 @@ if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
 
   # Ensure transaction is read-only if it was began before this patch was loaded
   connection = ::ActiveRecord::Base.connection
-  connection.execute "SET TRANSACTION READ ONLY" if connection.open_transactions > 0
+  connection.execute 'SET TRANSACTION READ ONLY' if connection.open_transactions > 0
 end
