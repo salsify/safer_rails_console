@@ -20,6 +20,8 @@ module SaferRailsConsole
               OptionParser.new do |opt|
                 opt.banner = 'Usage: rails console [environment] [options]'
                 opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
+                opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
+                opt.on('-r', '--read-only', 'Alias for --sandbox.') { |v| options[:'read-only'] = v }
                 opt.on('-e', '--environment=name', String,
                        'Specifies the environment to run this console under (test/development/production).',
                        'Default: development') { |v| options[:environment] = v.strip }
@@ -55,6 +57,8 @@ module SaferRailsConsole
               OptionParser.new do |opt|
                 opt.banner = 'Usage: rails console [environment] [options]'
                 opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
+                opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
+                opt.on('-r', '--read-only', 'Alias for --sandbox.') { |v| options[:'read-only'] = v }
                 opt.on('-e', '--environment=name', String,
                        'Specifies the environment to run this console under (test/development/production).',
                        'Default: development') { |v| options[:environment] = v.strip }
@@ -83,6 +87,8 @@ elsif SaferRailsConsole::RailsVersion.five_one?
   ::Rails::Command::ConsoleCommand.class_eval do
     remove_class_option :sandbox
     class_option :sandbox, aliases: '-s', type: :boolean, desc: 'Explicitly enable/disable sandbox mode.'
+    class_option :writable, aliases: '-w', type: :boolean, desc: 'Alias for --no-sandbox.'
+    class_option :'read-only', aliases: '-r', type: :boolean, desc: 'Alias for --sandbox.'
   end
 else
   unless SaferRailsConsole::RailsVersion.supported?
