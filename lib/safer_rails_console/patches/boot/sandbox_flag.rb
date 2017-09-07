@@ -59,7 +59,7 @@ module SaferRailsConsole
               options = {}
 
               OptionParser.new do |opt|
-                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt)
+                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt, options)
                 opt.parse!(arguments)
               end
 
