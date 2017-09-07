@@ -4,6 +4,16 @@ module SaferRailsConsole
   module Patches
     module Boot
       module SandboxFlag
+        def self.console_options(opt)
+          opt.banner = 'Usage: rails console [environment] [options]'
+          opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
+          opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
+          opt.on('-r', '--read-only', 'Alias for --sandbox.') { |v| options[:'read-only'] = v }
+          opt.on('-e', '--environment=name', String,
+                 'Specifies the environment to run this console under (test/development/production).',
+                 'Default: development') { |v| options[:environment] = v.strip }
+        end
+
         module Rails
           module CommandsTasks4
             def console
@@ -18,13 +28,7 @@ module SaferRailsConsole
               options = {}
 
               OptionParser.new do |opt|
-                opt.banner = 'Usage: rails console [environment] [options]'
-                opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
-                opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
-                opt.on('-r', '--read-only', 'Alias for --sandbox.') { |v| options[:'read-only'] = v }
-                opt.on('-e', '--environment=name', String,
-                       'Specifies the environment to run this console under (test/development/production).',
-                       'Default: development') { |v| options[:environment] = v.strip }
+                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt)
                 opt.on('--debugger', 'Enable the debugger.') { |v| options[:debugger] = v }
                 opt.parse!(arguments)
               end
@@ -55,13 +59,7 @@ module SaferRailsConsole
               options = {}
 
               OptionParser.new do |opt|
-                opt.banner = 'Usage: rails console [environment] [options]'
-                opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
-                opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
-                opt.on('-r', '--read-only', 'Alias for --sandbox.') { |v| options[:'read-only'] = v }
-                opt.on('-e', '--environment=name', String,
-                       'Specifies the environment to run this console under (test/development/production).',
-                       'Default: development') { |v| options[:environment] = v.strip }
+                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt)
                 opt.parse!(arguments)
               end
 

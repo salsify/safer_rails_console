@@ -27,11 +27,14 @@ require 'safer_rails_console/patches/boot'
 
 The quickest way to demo this gem is to run `bundle exec rails console --sandbox`.
 
-A way to explicitly enable or disable the sandbox is added to Rails console as a flag with the last install step.
+Several ways to explicitly enable or disable the sandbox are added to Rails console as flags with the last install step.  The order of precedence is `-s`, `-r`, then `-w` if multiple sandbox related flags are specified.
 ```ruby
 bundle exec rails console --help  
 
+Usage: rails console [environment] [options]
     -s, --[no-]sandbox               Explicitly enable/disable sandbox mode.
+    -w, --writable                   Alias for --no-sandbox.
+    -r, --read-only                  Alias for --sandbox.
     -e, --environment=name           Specifies the environment to run this console under (test/development/production).
                                      Default: development
         --debugger                   Enable the debugger.
