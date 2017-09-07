@@ -6,8 +6,15 @@ module SaferRailsConsole
           def start(*args)
             options = args.last
 
-            options[:sandbox] = SaferRailsConsole.sandbox_environment? if options[:sandbox].nil?
-            options[:sandbox] = SaferRailsConsole::Console.sandbox_user_prompt if SaferRailsConsole.sandbox_environment? && SaferRailsConsole.config.sandbox_prompt
+            if options[:sandbox].nil?
+              options[:sandbox] = if options[:'read-only']
+                                    true
+                                  elsif options[:writable]
+                                    false
+                                  else
+                                    SaferRailsConsole.sandbox_environment? && SaferRailsConsole.config.sandbox_prompt ? SaferRailsConsole::Console.sandbox_user_prompt : SaferRailsConsole.sandbox_environment?
+                                  end
+            end
 
             super *args
           end

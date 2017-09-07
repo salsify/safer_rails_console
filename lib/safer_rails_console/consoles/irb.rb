@@ -2,7 +2,7 @@ include SaferRailsConsole::Colors
 
 app_name = ::Rails.application.class.parent.to_s.underscore.dasherize
 env_name = SaferRailsConsole.environment_name
-status = ::Rails.application.sandbox ? 'sandboxed' : 'unsandboxed'
+status = ::Rails.application.sandbox ? 'read-only' : 'writable'
 color = SaferRailsConsole.prompt_color
 
 prompt = "#{app_name}(#{env_name})(#{status}):%03n:%i"

@@ -25,8 +25,8 @@ describe "Integration: consoles/irb" do
       cmd.stdout
     end
 
-    it "displays '(unsandboxed)'" do
-      expect(cmd_stdout).to include('(unsandboxed)')
+    it "displays '(writable)'" do
+      expect(cmd_stdout).to include('(writable)')
     end
   end
 
@@ -37,8 +37,8 @@ describe "Integration: consoles/irb" do
       cmd.stdout
     end
 
-    it "displays '(sandboxed)'" do
-      expect(cmd_stdout).to include('(sandboxed)')
+    it "displays '(read-only)'" do
+      expect(cmd_stdout).to include('(read-only)')
     end
   end
 end
