@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.2.0](https://github.com/salsify/safer_rails_console/tree/v0.2.0) (2017-09-07)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.4...v0.2.0)
+
+**Implemented enhancements:**
+
+- Sandbox mode should make it clear that edits don't stick [\#19](https://github.com/salsify/safer_rails_console/issues/19)
+- Writes made in sandbox mode take out DB locks [\#18](https://github.com/salsify/safer_rails_console/issues/18)
+- Confusion over unsandboxed/sandboxed terminology in command prompt [\#17](https://github.com/salsify/safer_rails_console/issues/17)
+
+**Merged pull requests:**
+
+- Set DB transactions to read-only and provide messaging for non-read operations [\#21](https://github.com/salsify/safer_rails_console/pull/21) ([timothysu](https://github.com/timothysu))
+- Change 'sandboxed' and 'unsandboxed' to 'read-only' and 'writable' and add respective flags [\#20](https://github.com/salsify/safer_rails_console/pull/20) ([timothysu](https://github.com/timothysu))
+
 ## [v0.1.4](https://github.com/salsify/safer_rails_console/tree/v0.1.4) (2017-08-15)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.3...v0.1.4)
 
