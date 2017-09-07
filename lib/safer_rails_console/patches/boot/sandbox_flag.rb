@@ -4,7 +4,7 @@ module SaferRailsConsole
   module Patches
     module Boot
       module SandboxFlag
-        def self.console_options(opt)
+        def self.console_options(opt, options = {})
           opt.banner = 'Usage: rails console [environment] [options]'
           opt.on('-s', '--[no-]sandbox', 'Explicitly enable/disable sandbox mode.') { |v| options[:sandbox] = v }
           opt.on('-w', '--writable', 'Alias for --no-sandbox.') { |v| options[:writable] = v }
@@ -28,7 +28,7 @@ module SaferRailsConsole
               options = {}
 
               OptionParser.new do |opt|
-                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt)
+                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt, options)
                 opt.on('--debugger', 'Enable the debugger.') { |v| options[:debugger] = v }
                 opt.parse!(arguments)
               end
