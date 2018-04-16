@@ -72,16 +72,16 @@ module SaferRailsConsole
   end
 end
 
-if SaferRailsConsole::RailsVersion.four_one? || SaferRailsConsole::RailsVersion.four_two?
+if SaferRailsConsole::RailsVersion.four_two?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks4)
 elsif SaferRailsConsole::RailsVersion.five_zero?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks50)
-elsif SaferRailsConsole::RailsVersion.five_one?
+elsif SaferRailsConsole::RailsVersion.five_one? || SaferRailsConsole::RailsVersion.five_two?
   require 'rails/command'
   require 'rails/commands/console/console_command'
-  # Rails 5.1 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
+  # Rails 5.1 and 5.2 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
   ::Rails::Command::ConsoleCommand.class_eval do
     remove_class_option :sandbox
     class_option :sandbox, aliases: '-s', type: :boolean, desc: 'Explicitly enable/disable sandbox mode.'

@@ -9,29 +9,26 @@ before_install:
   - gem install bundler
 
 before_script:
-  - cp spec/internal/database.yml.travis spec/internal/rails_4_1/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_4_2/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_0/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_1/config/database.yml
+  - cp spec/internal/database.yml.travis spec/internal/rails_5_2/config/database.yml
 
 script:
   - bundle exec rubocop
   - bundle exec rspec
 
 rvm:
-  - 2.2.7
-  - 2.3.4
-  - 2.4.1
+  - 2.2.10
+  - 2.3.7
+  - 2.4.4
+  - 2.5.1
 
 gemfile:
-  - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
+  - gemfiles/5.2.gemfile
 
 matrix:
-  allow_failures:
-    - gemfile: gemfiles/4.1.gemfile
-      rvm: 2.4.1
-
   fast_finish: true
