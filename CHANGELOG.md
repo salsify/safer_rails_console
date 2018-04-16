@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.0](https://github.com/salsify/safer_rails_console/tree/v0.3.0) (2018-04-16)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.2.0...v0.3.0)
+
+**Merged pull requests:**
+
+- Add support for Rails 5.2; remove support for Rails 4.1 [\#24](https://github.com/salsify/safer_rails_console/pull/24) ([timothysu](https://github.com/timothysu))
+
 ## [v0.2.0](https://github.com/salsify/safer_rails_console/tree/v0.2.0) (2017-09-07)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.4...v0.2.0)
 
