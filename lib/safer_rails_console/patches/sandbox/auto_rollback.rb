@@ -12,7 +12,7 @@ module SaferRailsConsole
 
         def self.handle_and_reraise_exception(e)
           if e.message.include?('PG::ReadOnlySqlTransaction')
-            puts color_text('An operation could not be completed due to read-only mode.', RED) # rubocop:disable Rails/Output
+            puts color_text('An operation could not be completed due to read-only mode.', Colors::RED) # rubocop:disable Rails/Output
           else
             rollback_and_begin_new_transaction
           end
