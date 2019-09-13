@@ -25,7 +25,7 @@ module SaferRailsConsole
 end
 
 if SaferRailsConsole::RailsVersion.supported?
-  if SaferRailsConsole::RailsVersion.five_one? || SaferRailsConsole::RailsVersion.five_two?
+  if SaferRailsConsole::RailsVersion.five_one_or_above?
     require 'rails/commands/console/console_command'
   else
     require 'rails/commands/console'
