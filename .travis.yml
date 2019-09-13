@@ -9,7 +9,6 @@ before_install:
   - gem install bundler
 
 before_script:
-  - cp spec/internal/database.yml.travis spec/internal/rails_4_2/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_0/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_1/config/database.yml
   - cp spec/internal/database.yml.travis spec/internal/rails_5_2/config/database.yml
@@ -20,11 +19,9 @@ script:
   - bundle exec rspec
 
 rvm:
-  - 2.4.7
   - 2.5.6
 
 gemfile:
-  - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
   - gemfiles/5.2.gemfile
@@ -32,6 +29,3 @@ gemfile:
 
 matrix:
   fast_finish: true
-  exclude:
-    - rvm: 2.4.7
-      gemfile: gemfiles/6.0.gemfile

@@ -6,12 +6,7 @@ module SaferRailsConsole
 
     class << self
       def supported?
-        four_two? || five_zero? || five_one? || five_two? || six_zero?
-      end
-
-      def four_two?
-        @is_four_two = Gem::Requirement.new('~> 4.2.0').satisfied_by?(SaferRailsConsole::RailsVersion::RAILS_VERSION) if @is_four_two.nil?
-        @is_four_two
+         five_zero? || five_one? || five_two? || six_zero?
       end
 
       def five_zero?
