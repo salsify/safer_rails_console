@@ -78,7 +78,7 @@ if SaferRailsConsole::RailsVersion.four_two?
 elsif SaferRailsConsole::RailsVersion.five_zero?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks50)
-elsif SaferRailsConsole::RailsVersion.five_one? || SaferRailsConsole::RailsVersion.five_two?
+elsif SaferRailsConsole::RailsVersion.five_one_or_above?
   require 'rails/command'
   require 'rails/commands/console/console_command'
   # Rails 5.1 and 5.2 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
