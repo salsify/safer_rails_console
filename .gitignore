@@ -13,3 +13,4 @@
 
 # Appraisal gemfile.lock
 /gemfiles/*.gemfile.lock
+out

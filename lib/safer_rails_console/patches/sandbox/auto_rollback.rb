@@ -22,14 +22,6 @@ module SaferRailsConsole
 
         module ActiveRecord
           module ConnectionAdapters
-            module PostgreSQLAdapter42
-              def execute_and_clear(sql, name, binds)
-                super
-              rescue => e
-                SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e)
-              end
-            end
-
             module PostgreSQLAdapter5
               def execute_and_clear(sql, name, binds, prepare: false)
                 super
@@ -45,9 +37,5 @@ module SaferRailsConsole
 end
 
 if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
-  if SaferRailsConsole::RailsVersion.four_two?
-    ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter42)
-  else
-    ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter5)
-  end
+  ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter5)
 end

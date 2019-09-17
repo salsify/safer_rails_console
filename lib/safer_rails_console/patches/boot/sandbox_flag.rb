@@ -15,37 +15,6 @@ module SaferRailsConsole
         end
 
         module Rails
-          module CommandsTasks4
-            def console
-              require_command!('console')
-              ::Rails::Console.singleton_class.prepend(::SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::Console4)
-              super
-            end
-          end
-
-          module Console4
-            def parse_arguments(arguments)
-              options = {}
-
-              OptionParser.new do |opt|
-                ::SaferRailsConsole::Patches::Boot::SandboxFlag.console_options(opt, options)
-                opt.on('--debugger', 'Enable the debugger.') { |v| options[:debugger] = v }
-                opt.parse!(arguments)
-              end
-
-              if arguments.first && arguments.first[0] != '-'
-                env = arguments.first
-                options[:environment] = if available_environments.include? env
-                                          env
-                                        else
-                                          %w(production development test).detect { |e| e =~ /^#{env}/ } || env
-                                        end
-              end
-
-              options
-            end
-          end
-
           module CommandsTasks50
             def console
               require_command!('console')
@@ -72,13 +41,10 @@ module SaferRailsConsole
   end
 end
 
-if SaferRailsConsole::RailsVersion.four_two?
-  require 'rails/commands/commands_tasks'
-  ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks4)
-elsif SaferRailsConsole::RailsVersion.five_zero?
+if SaferRailsConsole::RailsVersion.five_zero?
   require 'rails/commands/commands_tasks'
   ::Rails::CommandsTasks.prepend(SaferRailsConsole::Patches::Boot::SandboxFlag::Rails::CommandsTasks50)
-elsif SaferRailsConsole::RailsVersion.five_one? || SaferRailsConsole::RailsVersion.five_two?
+elsif SaferRailsConsole::RailsVersion.five_one_or_above?
   require 'rails/command'
   require 'rails/commands/console/console_command'
   # Rails 5.1 and 5.2 defaults `sandbox` to `false`, but we need it to NOT have a default value and be `nil` when it is not user-specified
