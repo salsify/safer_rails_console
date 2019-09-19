@@ -21,13 +21,7 @@ describe "Integration: patches/sandbox" do
 
     it "lets the user know that an operation could not be completed" do
       results = run_console('Model.create!')
-      # Currently, postgres is used for CI and local development is done against SQLite3
-      # TODO: We should get these warnings for all types databases not just postgres
-      if ENV['CI']
-        expect(results[:stdout]).to include('An operation could not be completed due to read-only mode.')
-      else
-        expect(results[:stdout]).not_to include('An operation could not be completed due to read-only mode.')
-      end
+      expect(results[:stdout]).to include('An operation could not be completed due to read-only mode.')
     end
   end
 

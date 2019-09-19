@@ -13,7 +13,8 @@ RSpec.configure do |config|
   rails_root = File.join(RSpec::Core::RubyProject.root, 'spec', 'internal', "rails_#{::Rails.version[0..2].tr('.', '_')}")
 
   config.before :suite do
-    system("cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
+    system!("export RAILS_ENV=development && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
+    system!("export RAILS_ENV=production && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
   end
 
   config.before :all do
@@ -24,5 +25,11 @@ RSpec.configure do |config|
 
   config.before :each do
     allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+  end
+
+  def system!(command)
+    unless system(command)
+      raise "Command failed with exit code #{$CHILD_STATUS}: #{command}"
+    end
   end
 end
