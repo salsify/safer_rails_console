@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.4.0](https://github.com/salsify/safer_rails_console/tree/v0.4.0) (2019-09-19)
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.3.0...v0.4.0)
+
+**Closed issues:**
+
+- safer\_rails\_console breaks newrelic reporting [\#23](https://github.com/salsify/safer_rails_console/issues/23)
+
+**Merged pull requests:**
+
+- Use Postgres for local development too [\#28](https://github.com/salsify/safer_rails_console/pull/28) ([jturkel](https://github.com/jturkel))
+- Rails 6.0 support [\#26](https://github.com/salsify/safer_rails_console/pull/27) ([jturkel](https://github.com/jturkel))
+- Drop Rails 4.2 support [\#26](https://github.com/salsify/safer_rails_console/pull/26) ([jturkel](https://github.com/jturkel))
+
 ## [v0.3.0](https://github.com/salsify/safer_rails_console/tree/v0.3.0) (2018-04-16)
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.2.0...v0.3.0)
 
