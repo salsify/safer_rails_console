@@ -5,7 +5,7 @@ describe "Integration: patches/sandbox" do
 
       # Run a new console session to ensure the database changes were not saved
       results = run_console('puts "Model Count = #{Model.count}"')
-      expect(results[:stdout]).to include("Model Count = 0")
+      expect(results[:stdout]).to include('Model Count = 0')
     end
   end
 
@@ -16,7 +16,7 @@ describe "Integration: patches/sandbox" do
 
       # Run a new console session to ensure the database changes were not saved
       results = run_console('puts "Model Count = #{Model.count}"')
-      expect(results[:stdout]).to include("Model Count = 0")
+      expect(results[:stdout]).to include('Model Count = 0')
     end
 
     it "lets the user know that an operation could not be completed" do
