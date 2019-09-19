@@ -16,6 +16,7 @@ describe SaferRailsConsole::RailsVersion do
       expect(described_class.five_zero?).to eq(false)
       expect(described_class.five_one?).to eq(false)
       expect(described_class.five_two?).to eq(false)
+      expect(described_class.six_zero?).to eq(false)
     end
   end
 
@@ -27,6 +28,7 @@ describe SaferRailsConsole::RailsVersion do
       expect(described_class.five_zero?).to eq(true)
       expect(described_class.five_one?).to eq(false)
       expect(described_class.five_two?).to eq(false)
+      expect(described_class.six_zero?).to eq(false)
     end
   end
 
@@ -38,6 +40,7 @@ describe SaferRailsConsole::RailsVersion do
       expect(described_class.five_zero?).to eq(false)
       expect(described_class.five_one?).to eq(true)
       expect(described_class.five_two?).to eq(false)
+      expect(described_class.six_zero?).to eq(false)
     end
   end
 
@@ -49,6 +52,19 @@ describe SaferRailsConsole::RailsVersion do
       expect(described_class.five_zero?).to eq(false)
       expect(described_class.five_one?).to eq(false)
       expect(described_class.five_two?).to eq(true)
+      expect(described_class.six_zero?).to eq(false)
+    end
+  end
+
+  describe "6.0" do
+    let(:rails_version) { '6.0.0' }
+
+    it "responds correctly" do
+      expect(described_class.supported?).to eq(true)
+      expect(described_class.five_zero?).to eq(false)
+      expect(described_class.five_one?).to eq(false)
+      expect(described_class.five_two?).to eq(false)
+      expect(described_class.six_zero?).to eq(true)
     end
   end
 end
