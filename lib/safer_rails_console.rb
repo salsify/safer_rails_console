@@ -15,11 +15,17 @@ module SaferRailsConsole
     end
 
     def sandbox_environment?
+      return false if test_environment?
       config.sandbox_environments.include?(::Rails.env.downcase)
     end
 
     def warn_environment?
+      return false if test_environment?
       config.warn_environments.include?(::Rails.env.downcase)
+    end
+
+    def test_environment?
+      config.test_environment
     end
 
     def config
@@ -44,6 +50,7 @@ module SaferRailsConsole
         },
         sandbox_environments: %w{production},
         sandbox_prompt: false,
+        test_environment: false,
         warn_environments: %w{production},
         warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
                    'Changing data can cause serious data loss. ' \
