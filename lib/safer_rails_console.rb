@@ -38,7 +38,7 @@ module SaferRailsConsole
         config.warn_environments.include?(::Rails.env.downcase)
       end
     end
-    
+
     def warn_text
       if ENV.key?('SAFER_RAILS_CONSOLE_WARN_TEXT')
         ENV['SAFER_RAILS_CONSOLE_WARN_TEXT']
