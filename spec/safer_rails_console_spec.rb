@@ -49,5 +49,27 @@ describe SaferRailsConsole do
       described_class.config.set(sandbox_prompt: true)
       expect(described_class.config.sandbox_prompt).to eq(true)
     end
+
+    it "#set with ENV vars" do
+      with_modified_env SAFER_RAILS_CONSOLE_WARN_TEXT: 'warn-text',
+      SAFER_RAILS_CONSOLE_ENVIRONMENT_NAME: 'short-name',
+      SAFER_RAILS_CONSOLE_WARN_ENVIRONMENT: 'true',
+      SAFER_RAILS_CONSOLE_SANDBOX_ENVIRONMENT: 'true',
+      SAFER_RAILS_CONSOLE_PROMPT_COLOR: 'red' do
+        expect(described_class.warn_text).to eq('warn-text')
+        expect(described_class.environment_name).to eq('short-name')
+        expect(described_class.warn_environment?).to eq(true)
+        expect(described_class.sandbox_environment?).to eq(true)
+        expect(described_class.prompt_color).to eq(31)
+      end
+    end
+
+    it "#set with false ENV vars" do
+      with_modified_env SAFER_RAILS_CONSOLE_WARN_ENVIRONMENT: 'false',
+      SAFER_RAILS_CONSOLE_SANDBOX_ENVIRONMENT: 'false' do
+        expect(described_class.warn_environment?).to eq(false)
+        expect(described_class.sandbox_environment?).to eq(false)
+      end
+    end
   end
 end
