@@ -73,6 +73,24 @@ config.safer_rails_console.warn_text = "WARNING: YOU ARE USING RAILS CONSOLE IN 
                                        'Make sure you know what you\'re doing.'
 ```
 
+configuration settings can also be overridden using ENV variables. The following ENV vars can be used:
+```
+# Set the color prompt to a new color. See colors.rb for a listing of supported colors.
+SAFER_RAILS_CONSOLE_PROMPT_COLOR=red/yellow/green
+
+# Set the short name for the rails console prompt
+SAFER_RAILS_CONSOLE_ENVIRONMENT_NAME=short-name
+
+# Set the warning text to be displayed when warning for the environments rails consoled is enabled
+SAFER_RAILS_CONSOLE_WARN_TEXT=New warning prompt text
+
+# Enable or disable sandboxing of the rails console
+SAFER_RAILS_CONSOLE_SANDBOX_ENVIRONMENT=true/false
+
+# Enable or disable warning prompt of the rails console
+SAFER_RAILS_CONSOLE_WARN_ENVIRONMENT=true/false
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `wwtd` to simulate the entire build matrix (ruby version / rails version) or `appraisal` to test against each supported rails version with your active ruby version. Run `rubocop` to check for style. 
