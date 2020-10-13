@@ -8,7 +8,7 @@ module SaferRailsConsole
       end
 
       def print_warning
-        puts color_text(SaferRailsConsole.config.warn_text, SaferRailsConsole.prompt_color) # rubocop:disable Rails/Output
+        puts color_text(SaferRailsConsole.warn_text, SaferRailsConsole.prompt_color) # rubocop:disable Rails/Output
       end
 
       def load_config

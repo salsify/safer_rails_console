@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'climate_control'
 require 'mixlib/shellout'
 require 'safer_rails_console'
 
@@ -25,6 +26,10 @@ RSpec.configure do |config|
 
   config.before :each do
     allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+  end
+
+  def with_modified_env(options, &block)
+    ClimateControl.modify(options, &block)
   end
 
   def system!(command)
