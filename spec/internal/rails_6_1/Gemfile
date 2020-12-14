@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'pg'
+gem 'rails', '~> 6.1.0'
+
+gem 'safer_rails_console', path: '../../../'
