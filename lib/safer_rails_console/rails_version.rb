@@ -6,7 +6,7 @@ module SaferRailsConsole
 
     class << self
       def supported?
-        five_zero? || five_one? || five_two? || six_zero?
+        five_zero? || five_one? || five_two? || six_or_above?
       end
 
       def five_zero?

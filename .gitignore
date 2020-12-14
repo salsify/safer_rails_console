@@ -14,3 +14,4 @@
 # Appraisal gemfile.lock
 /gemfiles/*.gemfile.lock
 out
+*.sqlite3
