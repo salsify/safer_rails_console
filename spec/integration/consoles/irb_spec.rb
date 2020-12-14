@@ -1,9 +1,8 @@
 describe "Integration: consoles/irb" do
   let(:app_name) { "rails#{::Rails.version[0..2].tr('.', '')}" }
   let(:cmd_stdout) do
-    cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env, input: 'exit')
-    cmd.run_command
-    cmd.stdout
+    result = run_console(input: 'exit')
+    result.stdout
   end
 
   it "displays a colored prompt" do
@@ -20,9 +19,8 @@ describe "Integration: consoles/irb" do
 
   context "--no-sandbox" do
     let(:cmd_stdout) do
-      cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --no-sandbox", env: @rails_env, input: 'exit')
-      cmd.run_command
-      cmd.stdout
+      result = run_console('--no-sandbox', input: 'exit')
+      result.stdout
     end
 
     it "displays '(writable)'" do
@@ -32,9 +30,8 @@ describe "Integration: consoles/irb" do
 
   context "--sandbox" do
     let(:cmd_stdout) do
-      cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --sandbox", env: @rails_env, input: 'exit')
-      cmd.run_command
-      cmd.stdout
+      result = run_console('--sandbox', input: 'exit')
+      result.stdout
     end
 
     it "displays '(read-only)'" do

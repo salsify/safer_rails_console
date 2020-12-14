@@ -1,9 +1,8 @@
 describe "Integration: patches/boot" do
   context "sandbox_flag" do
     let(:cmd_stdout) do
-      cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --help")
-      cmd.run_command
-      cmd.stdout
+      result = run_console('--help')
+      result.stdout
     end
 
     it "adds relevant flags to 'rails console'" do
@@ -19,9 +18,8 @@ describe "Integration: patches/boot" do
 
     context "--no-sandbox" do
       let(:cmd_stdout) do
-        cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --no-sandbox", env: @rails_env.merge(RAILS_ENV: 'production'), input: 'exit')
-        cmd.run_command
-        cmd.stdout
+        result = run_console('--no-sandbox', rails_env: :production, input: 'exit')
+        result.stdout
       end
 
       it "explicitly disables the sandbox if it would be enabled automatically" do
@@ -31,9 +29,8 @@ describe "Integration: patches/boot" do
 
     context "--sandbox" do
       let(:cmd_stdout) do
-        cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --sandbox", env: @rails_env.merge(RAILS_ENV: 'development'), input: 'exit')
-        cmd.run_command
-        cmd.stdout
+        result = run_console('--sandbox', rails_env: :development, input: 'exit')
+        result.stdout
       end
 
       it "explicitly enables the sandbox if it is not enabled automatically" do
@@ -43,9 +40,8 @@ describe "Integration: patches/boot" do
 
     context "--read-only" do
       let(:cmd_stdout) do
-        cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --read-only", env: @rails_env.merge(RAILS_ENV: 'development'), input: 'exit')
-        cmd.run_command
-        cmd.stdout
+        result = run_console('--read-only', rails_env: :development, input: 'exit')
+        result.stdout
       end
 
       it "explicitly enables the sandbox if it is not enabled automatically" do
@@ -55,9 +51,8 @@ describe "Integration: patches/boot" do
 
     context "--writable" do
       let(:cmd_stdout) do
-        cmd = Mixlib::ShellOut.new("#{@rails_cmd} console --writable", env: @rails_env.merge(RAILS_ENV: 'production'), input: 'exit')
-        cmd.run_command
-        cmd.stdout
+        result = run_console('--writable', rails_env: :production, input: 'exit')
+        result.stdout
       end
 
       it "explicitly disables the sandbox if it would be enabled automatically" do

@@ -1,0 +1,78 @@
+version: 2.1
+jobs:
+  lint:
+    docker:
+      - image: salsify/ruby_ci:2.5.8
+    working_directory: ~/safer_rails_console
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+            - v2-gems-ruby-2.5.8-
+      - run:
+          name: Install Gems
+          command: |
+            if ! bundle check --path=vendor/bundle; then
+              bundle install --path=vendor/bundle --jobs=4 --retry=3
+              bundle clean
+            fi
+      - save_cache:
+          key: v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+          paths:
+            - "vendor/bundle"
+            - "gemfiles/vendor/bundle"
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
+  test:
+    parameters:
+      gemfile:
+        type: string
+    docker:
+      - image: salsify/ruby_ci:2.5.8
+        environment:
+          CIRCLE_TEST_REPORTS: "test-results"
+          BUNDLE_GEMFILE: "/home/circleci/safer_rails_console/<< parameters.gemfile >>"
+      - image: circleci/postgres:9.6
+        environment:
+          POSTGRES_USER: "circleci"
+          POSTGRES_DB: "safer_rails_console_test"
+          POSTGRES_HOST_AUTH_METHOD: "trust"
+    working_directory: ~/safer_rails_console
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+            - v2-gems-ruby-2.5.8-
+      - run:
+          name: Install Gems
+          command: |
+            if ! bundle check --path=vendor/bundle; then
+              bundle install --path=vendor/bundle --jobs=4 --retry=3
+              bundle clean
+            fi
+      - save_cache:
+          key: v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+          paths:
+            - "vendor/bundle"
+            - "gemfiles/vendor/bundle"
+      - run:
+          name: Run Tests
+          command: |
+            bundle exec rspec --format RspecJunitFormatter --out $CIRCLE_TEST_REPORTS/rspec/junit.xml --format progress spec
+      - store_test_results:
+          path: "test-results"
+workflows:
+  build:
+    jobs:
+      - lint
+      - test:
+          matrix:
+            parameters:
+              gemfile:
+              - "gemfiles/5.0.gemfile"
+              - "gemfiles/5.1.gemfile"
+              - "gemfiles/5.2.gemfile"
+              - "gemfiles/6.0.gemfile"

@@ -1,20 +1,17 @@
 describe "Integration: patches/railtie" do
   let(:cmd_stdout) do
-    cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env, input: 'exit')
-    cmd.run_command
-    cmd.stdout
+    result = run_console(input: 'exit')
+    result.stdout
   end
 
   context "sandbox" do
-    let(:console_commands) { ['exit'] }
     let(:cmd_stdout) do
-      cmd = Mixlib::ShellOut.new("#{@rails_cmd} console", env: @rails_env.merge(RAILS_ENV: specified_env), input: console_commands.join("\n"))
-      cmd.run_command
-      cmd.stdout
+      result = run_console(rails_env: rails_env, input: 'exit')
+      result.stdout
     end
 
     context "RAILS_ENV=development" do
-      let(:specified_env) { 'development' }
+      let(:rails_env) { :development }
 
       it "does not automatically enable sandbox" do
         expect(cmd_stdout).not_to include('Any modifications you make will be rolled back on exit')
@@ -26,7 +23,7 @@ describe "Integration: patches/railtie" do
     end
 
     context "RAILS_ENV=production" do
-      let(:specified_env) { 'production' }
+      let(:rails_env) { :production }
 
       it "automatically enables sandbox" do
         expect(cmd_stdout).to include('Any modifications you make will be rolled back on exit')
