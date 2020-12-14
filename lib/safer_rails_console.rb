@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'safer_rails_console/version'
 require 'safer_rails_console/railtie'
 require 'safer_rails_console/colors'

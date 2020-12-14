@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SaferRailsConsole
   module Console
     class << self

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SaferRailsConsole::RailsVersion do
   before do
     stub_const("#{described_class.name}::RAILS_VERSION", Gem::Version.new(rails_version))

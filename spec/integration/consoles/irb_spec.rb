@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe "Integration: consoles/irb" do
   let(:app_name) { "rails#{::Rails.version[0..2].tr('.', '')}" }
   let(:cmd_stdout) do

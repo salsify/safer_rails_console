@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SaferRailsConsole::Console do
   context ".initialize_sandbox" do
     it "loads sandbox patches" do

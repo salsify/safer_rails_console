@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SaferRailsConsole::Colors do
   let(:class_with_colors) do
     class ClassWithColors

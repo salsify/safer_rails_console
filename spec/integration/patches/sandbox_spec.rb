@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe "Integration: patches/sandbox" do
   context "auto_rollback" do
     it "automatically executes rollback and begins a new transaction after executing a invalid SQL statement" do

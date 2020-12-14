@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SaferRailsConsole do
   describe "RAILS_ENV=default (development)" do
     it ".environment_name" do
