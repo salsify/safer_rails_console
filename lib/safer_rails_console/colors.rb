@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SaferRailsConsole
   module Colors
     NONE = 0

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe "Integration: patches/boot" do
   context "sandbox_flag" do
     let(:cmd_stdout) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include SaferRailsConsole::Colors
 
 app_name = if SaferRailsConsole::RailsVersion.six_or_above?
@@ -16,7 +18,7 @@ IRB.conf[:PROMPT][:RAILS_ENV] = {
   PROMPT_N: color_text("#{prompt}> ", color),
   PROMPT_S: color_text("#{prompt}%l ", color),
   PROMPT_C: color_text("#{prompt}* ", color),
-  RETURN: color_text('=> ', color).concat("%s\n")
+  RETURN: "#{color_text('=> ', color)}%s\n"
 }
 
 IRB.conf[:PROMPT_MODE] = :RAILS_ENV

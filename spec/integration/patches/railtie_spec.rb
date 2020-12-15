@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe "Integration: patches/railtie" do
   let(:cmd_stdout) do
     result = run_console(input: 'exit')

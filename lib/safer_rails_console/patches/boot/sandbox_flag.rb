@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'safer_rails_console/rails_version'
 
 module SaferRailsConsole
