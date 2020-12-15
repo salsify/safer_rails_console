@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.5.0](https://github.com/salsify/safer_rails_console/tree/v0.5.0) (2020-12-15)
+
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.4.1...v0.5.0)
+
+**Merged pull requests:**
+
+- Enable frozen string literals cop [\#36](https://github.com/salsify/safer_rails_console/pull/36) ([jturkel](https://github.com/jturkel))
+- Rails 6.1 Support [\#35](https://github.com/salsify/safer_rails_console/pull/35) ([jturkel](https://github.com/jturkel))
+- Migrate to CircleCI [\#34](https://github.com/salsify/safer_rails_console/pull/34) ([jturkel](https://github.com/jturkel))
+
 ## [v0.4.1](https://github.com/salsify/safer_rails_console/tree/v0.4.1) (2020-10-13)
 
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.4.0...v0.4.1)
@@ -23,9 +33,9 @@
 
 **Merged pull requests:**
 
+- Use Postgres for local development too [\#28](https://github.com/salsify/safer_rails_console/pull/28) ([jturkel](https://github.com/jturkel))
 - Rails 6.0 support [\#27](https://github.com/salsify/safer_rails_console/pull/27) ([jturkel](https://github.com/jturkel))
 - Drop Rails 4.2 support [\#26](https://github.com/salsify/safer_rails_console/pull/26) ([jturkel](https://github.com/jturkel))
-- Resolve sqlite3 dependency warning [\#11](https://github.com/salsify/safer_rails_console/pull/11) ([timothysu](https://github.com/timothysu))
 
 ## [v0.3.0](https://github.com/salsify/safer_rails_console/tree/v0.3.0) (2018-04-16)
 
@@ -34,7 +44,6 @@
 **Merged pull requests:**
 
 - Add support for Rails 5.2; remove support for Rails 4.1 [\#24](https://github.com/salsify/safer_rails_console/pull/24) ([timothysu](https://github.com/timothysu))
-- Patch PostgreSQLAdapter\#execute\_and\_clear instead of AbstractAdapter\#log for auto-rollback [\#15](https://github.com/salsify/safer_rails_console/pull/15) ([timothysu](https://github.com/timothysu))
 
 ## [v0.2.0](https://github.com/salsify/safer_rails_console/tree/v0.2.0) (2017-09-07)
 
@@ -48,7 +57,6 @@
 
 **Merged pull requests:**
 
-- Use Postgres for local development too [\#28](https://github.com/salsify/safer_rails_console/pull/28) ([jturkel](https://github.com/jturkel))
 - Set DB transactions to read-only and provide messaging for non-read operations [\#21](https://github.com/salsify/safer_rails_console/pull/21) ([timothysu](https://github.com/timothysu))
 - Change 'sandboxed' and 'unsandboxed' to 'read-only' and 'writable' and add respective flags [\#20](https://github.com/salsify/safer_rails_console/pull/20) ([timothysu](https://github.com/timothysu))
 
@@ -61,6 +69,10 @@
 - Invalid cached and prepared statements do not trigger a automatic rollback with PostgreSQL [\#16](https://github.com/salsify/safer_rails_console/issues/16)
 - safer\_rails\_console doesn't work in alerts service rails console mode in sandbox mode [\#13](https://github.com/salsify/safer_rails_console/issues/13)
 
+**Merged pull requests:**
+
+- Patch PostgreSQLAdapter\#execute\_and\_clear instead of AbstractAdapter\#log for auto-rollback [\#15](https://github.com/salsify/safer_rails_console/pull/15) ([timothysu](https://github.com/timothysu))
+
 ## [v0.1.3](https://github.com/salsify/safer_rails_console/tree/v0.1.3) (2017-08-02)
 
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.1.2...v0.1.3)
@@ -72,6 +84,7 @@
 **Merged pull requests:**
 
 - Default sandbox flag to nil in Rails 5.1 [\#12](https://github.com/salsify/safer_rails_console/pull/12) ([timothysu](https://github.com/timothysu))
+- Resolve sqlite3 dependency warning [\#11](https://github.com/salsify/safer_rails_console/pull/11) ([timothysu](https://github.com/timothysu))
 
 ## [v0.1.2](https://github.com/salsify/safer_rails_console/tree/v0.1.2) (2017-07-21)
 
