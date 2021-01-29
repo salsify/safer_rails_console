@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.1](https://github.com/salsify/safer_rails_console/tree/v0.5.0) (2020-01-29)
+
+[Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- Ruby 3 Support [\#39](https://github.com/salsify/safer_rails_console/pull/39) ([kphelps](https://github.com/kphelps))
+
 ## [v0.5.0](https://github.com/salsify/safer_rails_console/tree/v0.5.0) (2020-12-15)
 
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.4.1...v0.5.0)
