@@ -27,6 +27,8 @@ jobs:
           command: bundle exec rubocop
   test:
     parameters:
+      ruby_version:
+        type: string
       gemfile:
         type: string
     docker:
