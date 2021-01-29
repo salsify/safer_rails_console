@@ -30,7 +30,7 @@ jobs:
       gemfile:
         type: string
     docker:
-      - image: salsify/ruby_ci:2.5.8
+      - image: salsify/ruby_ci:<< parameters.ruby_version >>
         environment:
           CIRCLE_TEST_REPORTS: "test-results"
           BUNDLE_GEMFILE: "/home/circleci/safer_rails_console/<< parameters.gemfile >>"
@@ -44,8 +44,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
-            - v2-gems-ruby-2.5.8-
+            - v2-gems-ruby-<< parameters.ruby_version >>-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+            - v2-gems-ruby-<< parameters.ruby_version >>-
       - run:
           name: Install Gems
           command: |
@@ -54,7 +54,7 @@ jobs:
               bundle clean
             fi
       - save_cache:
-          key: v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+          key: v2-gems-ruby-<< parameters.ruby_version >>-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
@@ -69,6 +69,7 @@ workflows:
     jobs:
       - lint
       - test:
+          ruby_version: "2.5.8"
           matrix:
             parameters:
               gemfile:
@@ -77,3 +78,7 @@ workflows:
               - "gemfiles/5.2.gemfile"
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
+      - test:
+          name: 'ruby-3.0.0'
+          ruby_version: "3.0.0"
+          gemfile: "gemfiles/6.1.gemfile"
