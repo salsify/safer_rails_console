@@ -10,7 +10,7 @@ module SaferRailsConsole
     config.safer_rails_console = ActiveSupport::OrderedOptions.new
 
     initializer 'safer_rails_console.configure' do |app|
-      SaferRailsConsole.config.set(app.config.safer_rails_console)
+      SaferRailsConsole.config.set(**app.config.safer_rails_console)
     end
 
     config.after_initialize do
