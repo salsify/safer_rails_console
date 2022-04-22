@@ -71,20 +71,16 @@ workflows:
     jobs:
       - lint
       - test:
-          ruby_version: "2.5.8"
           matrix:
             parameters:
+              ruby_version:
+                - "2.7.6"
+                - "3.0.4"
+                - "3.1.2"
               gemfile:
               - "gemfiles/5.0.gemfile"
               - "gemfiles/5.1.gemfile"
               - "gemfiles/5.2.gemfile"
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
-      - test:
-          name: 'ruby-3.0.0'
-          ruby_version: "3.0.0"
-          matrix:
-            parameters:
-              gemfile:
-                - "gemfiles/6.1.gemfile"
-                - "gemfiles/7.0.gemfile"
+              - "gemfiles/7.0.gemfile"
