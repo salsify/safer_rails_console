@@ -80,6 +80,7 @@ workflows:
               - "gemfiles/5.2.gemfile"
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
+              - "gemfiles/7.0.gemfile"
       - test:
           name: 'ruby-3.0.0'
           ruby_version: "3.0.0"
