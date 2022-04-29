@@ -6,7 +6,7 @@ describe "Integration: patches/sandbox" do
       run_console_commands('Model.create!', 'Model.where(invalid: :statement)', 'Model.create!')
 
       # Run a new console session to ensure the database changes were not saved
-      result = run_console_commands('puts "Model Count = #{Model.count}"')
+      result = run_console_commands('puts "Model Count = #{Model.count}"') # rubocop:disable Lint/InterpolationCheck
       expect(result.stdout).to include('Model Count = 0')
     end
   end
@@ -17,7 +17,7 @@ describe "Integration: patches/sandbox" do
       run_console_commands('Model.create!', 'Model.create!')
 
       # Run a new console session to ensure the database changes were not saved
-      result = run_console_commands('puts "Model Count = #{Model.count}"')
+      result = run_console_commands('puts "Model Count = #{Model.count}"') # rubocop:disable Lint/InterpolationCheck
       expect(result.stdout).to include('Model Count = 0')
     end
 

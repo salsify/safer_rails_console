@@ -2,14 +2,14 @@ version: 2.1
 jobs:
   lint:
     docker:
-      - image: salsify/ruby_ci:2.5.8
+      - image: salsify/ruby_ci:2.7.6
     working_directory: ~/safer_rails_console
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
-            - v2-gems-ruby-2.5.8-
+            - v2-gems-ruby-2.7.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+            - v2-gems-ruby-2.7.6-
       - run:
           name: Install Gems
           command: |
@@ -18,7 +18,7 @@ jobs:
               bundle clean
             fi
       - save_cache:
-          key: v2-gems-ruby-2.5.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+          key: v2-gems-ruby-2.7.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
@@ -36,7 +36,7 @@ jobs:
         environment:
           CIRCLE_TEST_REPORTS: "test-results"
           BUNDLE_GEMFILE: "/home/circleci/safer_rails_console/<< parameters.gemfile >>"
-      - image: circleci/postgres:9.6
+      - image: cimg/postgres:12.9
         environment:
           POSTGRES_USER: "circleci"
           POSTGRES_DB: "safer_rails_console_test"
@@ -71,13 +71,15 @@ workflows:
     jobs:
       - lint
       - test:
-          ruby_version: "2.5.8"
           matrix:
             parameters:
+              ruby_version:
+              - "2.7.6"
+              - "3.0.4"
+              - "3.1.2"
               gemfile:
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
-      - test:
-          name: 'ruby-3.0.0'
-          ruby_version: "3.0.0"
-          gemfile: "gemfiles/6.1.gemfile"
+            exclude:
+              - ruby_version: "3.1.2"
+                gemfile: "gemfiles/6.0.gemfile"

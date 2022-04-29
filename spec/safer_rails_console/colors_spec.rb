@@ -2,11 +2,7 @@
 
 describe SaferRailsConsole::Colors do
   let(:class_with_colors) do
-    class ClassWithColors
-      include SaferRailsConsole::Colors
-    end
-
-    ClassWithColors
+    Class.new.include(SaferRailsConsole::Colors)
   end
 
   let(:sample_text) { 'some input' }
@@ -23,7 +19,7 @@ describe SaferRailsConsole::Colors do
     expect(described_class::WHITE).to eq(37)
   end
 
-  context "#color_text" do
+  describe "#color_text" do
     it "is defined when included in a class" do
       expect(class_with_colors.method_defined?(:color_text)).to eq(true)
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe SaferRailsConsole::Console do
-  context ".initialize_sandbox" do
+  describe ".initialize_sandbox" do
     it "loads sandbox patches" do
       expect(defined?(SaferRailsConsole::Patches::Sandbox)).to be_nil
 
@@ -11,7 +11,7 @@ describe SaferRailsConsole::Console do
     end
   end
 
-  context ".print_warning" do
+  describe ".print_warning" do
     let(:expected_output) { "\e[#{SaferRailsConsole.prompt_color}m#{SaferRailsConsole.config.warn_text}\e[0m\n" }
 
     it "outputs the warning text in the correct color" do
@@ -19,7 +19,7 @@ describe SaferRailsConsole::Console do
     end
   end
 
-  context ".load_config" do
+  describe ".load_config" do
     before { described_class.load_config }
 
     it "adds console config file to ARGV" do
@@ -27,7 +27,7 @@ describe SaferRailsConsole::Console do
     end
   end
 
-  context ".sandbox_user_prompt" do
+  describe ".sandbox_user_prompt" do
     context "input: 'disable'" do
       before { allow(described_class).to receive(:gets).and_return('disable') }
 

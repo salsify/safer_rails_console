@@ -4,7 +4,6 @@ module SaferRailsConsole
   module Patches
     module Sandbox
       module AutoRollback
-        extend SaferRailsConsole::Colors
 
         def self.rollback_and_begin_new_transaction
           connection = ::ActiveRecord::Base.connection
@@ -12,32 +11,31 @@ module SaferRailsConsole
           connection.begin_db_transaction
         end
 
-        def self.handle_and_reraise_exception(e)
-          if e.message.include?('PG::ReadOnlySqlTransaction')
-            puts color_text('An operation could not be completed due to read-only mode.', RED) # rubocop:disable Rails/Output
+        def self.handle_and_reraise_exception(error)
+          if error.message.include?('PG::ReadOnlySqlTransaction')
+            puts SaferRailsConsole::Colors.color_text( # rubocop:disable Rails/Output
+              'An operation could not be completed due to read-only mode.',
+              SaferRailsConsole::Colors::RED
+            )
           else
             rollback_and_begin_new_transaction
           end
 
-          raise e
+          raise error
         end
 
-        module ActiveRecord
-          module ConnectionAdapters
-            module PostgreSQLAdapter5
-              def execute_and_clear(sql, name, binds, prepare: false)
-                super
-              rescue => e
-                SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e)
-              end
-            end
+        module PostgreSQLAdapterPatch
+          def execute_and_clear(sql, name, binds, prepare: false)
+            super
+          rescue StandardError => e
+            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e)
           end
+        end
+
+        if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+          ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLAdapterPatch)
         end
       end
     end
   end
-end
-
-if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
-  ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(SaferRailsConsole::Patches::Sandbox::AutoRollback::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter5)
 end

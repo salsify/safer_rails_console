@@ -2,10 +2,8 @@ inherit_gem:
   salsify_rubocop: conf/rubocop_rails.yml
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
   Exclude:
     - 'vendor/**/*'
-    - 'gemfiles/vendor/**/*'
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
+    - 'gemfiles/**/*'
+    - 'spec/internal/**/*'
