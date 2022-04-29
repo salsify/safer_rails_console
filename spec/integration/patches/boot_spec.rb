@@ -8,12 +8,7 @@ describe "Integration: patches/boot" do
     end
 
     it "adds relevant flags to 'rails console'" do
-      if SaferRailsConsole::RailsVersion.five_one_or_above?
-        expect(cmd_stdout).to include('--no-sandbox')
-      else
-        expect(cmd_stdout).to include('--[no-]sandbox')
-      end
-
+      expect(cmd_stdout).to include('--no-sandbox')
       expect(cmd_stdout).to include('--read-only')
       expect(cmd_stdout).to include('--writable')
     end
