@@ -75,9 +75,6 @@ workflows:
           matrix:
             parameters:
               gemfile:
-              - "gemfiles/5.0.gemfile"
-              - "gemfiles/5.1.gemfile"
-              - "gemfiles/5.2.gemfile"
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
       - test:
