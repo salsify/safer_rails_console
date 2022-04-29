@@ -18,7 +18,7 @@ RSpec.configure do |config|
     system!("export RAILS_ENV=production && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
   end
 
-  config.before :each do
+  config.before do
     allow(::Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
   end
 
@@ -41,8 +41,6 @@ RSpec.configure do |config|
   end
 
   def system!(command)
-    unless system(command)
-      raise "Command failed with exit code #{$CHILD_STATUS}: #{command}"
-    end
+    raise "Command failed with exit code #{$CHILD_STATUS}: #{command}" unless system(command)
   end
 end

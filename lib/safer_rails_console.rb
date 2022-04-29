@@ -12,16 +12,20 @@ module SaferRailsConsole
     def environment_name
       if ENV.key?('SAFER_RAILS_CONSOLE_ENVIRONMENT_NAME')
         ENV['SAFER_RAILS_CONSOLE_ENVIRONMENT_NAME']
+      elsif config.environment_names.key?(::Rails.env.downcase)
+        config.environment_names[::Rails.env.downcase]
       else
-        config.environment_names.key?(::Rails.env.downcase) ? config.environment_names[::Rails.env.downcase] : 'unknown env'
+        'unknown env'
       end
     end
 
     def prompt_color
       if ENV.key?('SAFER_RAILS_CONSOLE_PROMPT_COLOR')
         SaferRailsConsole::Colors.const_get(ENV['SAFER_RAILS_CONSOLE_PROMPT_COLOR'].upcase)
+      elsif config.environment_prompt_colors.key?(::Rails.env.downcase)
+        config.environment_prompt_colors[::Rails.env.downcase]
       else
-        config.environment_prompt_colors.key?(::Rails.env.downcase) ? config.environment_prompt_colors[::Rails.env.downcase] : SaferRailsConsole::Colors::NONE
+        SaferRailsConsole::Colors::NONE
       end
     end
 
@@ -69,9 +73,9 @@ module SaferRailsConsole
             'staging' => SaferRailsConsole::Colors::YELLOW,
             'production' => SaferRailsConsole::Colors::RED
         },
-        sandbox_environments: %w{production},
+        sandbox_environments: ['production'],
         sandbox_prompt: false,
-        warn_environments: %w{production},
+        warn_environments: ['production'],
         warn_text: "WARNING: YOU ARE USING RAILS CONSOLE IN PRODUCTION!\n" \
                    'Changing data can cause serious data loss. ' \
                    'Make sure you know what you\'re doing.'

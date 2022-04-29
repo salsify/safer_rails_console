@@ -1,7 +1,6 @@
-# coding: utf-8
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'safer_rails_console/version'
 
@@ -12,7 +11,9 @@ Gem::Specification.new do |spec|
   spec.email         = ['engineering@salsify.com']
 
   spec.summary       = 'Make rails console less dangerous!'
-  spec.description   = 'This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, auto-sandboxing, and allowing read-only external connections (disables job queueing, non-GET requests, etc.)'
+  spec.description   = 'This gem makes Rails console sessions less dangerous in specified environments by warning, ' \
+    'color-coding, auto-sandboxing, and allowing read-only external connections ' \
+    '(disables job queueing, non-GET requests, etc.)'
   spec.homepage      = 'https://github.com/salsify/safer_rails_console'
   spec.license       = 'MIT'
 
@@ -43,7 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.6'
   spec.add_development_dependency 'rspec_junit_formatter'
-  spec.add_development_dependency 'salsify_rubocop', '~> 0.48.0'
+  spec.add_development_dependency 'salsify_rubocop', '~> 1.27.0'
 
   spec.add_runtime_dependency 'rails', '>= 6.0', '< 6.2'
 end

@@ -13,8 +13,11 @@ module SaferRailsConsole
                                     true
                                   elsif options[:writable]
                                     false
+                                  elsif SaferRailsConsole.sandbox_environment? &&
+                                      SaferRailsConsole.config.sandbox_prompt
+                                    SaferRailsConsole::Console.sandbox_user_prompt
                                   else
-                                    SaferRailsConsole.sandbox_environment? && SaferRailsConsole.config.sandbox_prompt ? SaferRailsConsole::Console.sandbox_user_prompt : SaferRailsConsole.sandbox_environment?
+                                    SaferRailsConsole.sandbox_environment?
                                   end
             end
 
@@ -31,6 +34,6 @@ if SaferRailsConsole::RailsVersion.supported?
 
   ::Rails::Console.singleton_class.prepend(SaferRailsConsole::Patches::Sandbox::Rails::Console)
 else
-  raise "No sandbox patch for rails version '#{::Rails.version}' exists. "\
-          'Please disable safer_rails_console, use a supported version of rails, or disable SaferRailsConsole.config.sandbox_environments.'
+  raise "No sandbox patch for rails version '#{::Rails.version}' exists. Please disable safer_rails_console, "\
+          'use a supported version of rails, or disable SaferRailsConsole.config.sandbox_environments.'
 end

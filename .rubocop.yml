@@ -6,6 +6,4 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'gemfiles/**/*'
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
+    - 'spec/internal/**/*'
