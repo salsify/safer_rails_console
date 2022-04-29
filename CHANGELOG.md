@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Drop support for Ruby < 2.7 and Rails < 6.0.
+
 ## [v0.5.1](https://github.com/salsify/safer_rails_console/tree/v0.5.0) (2020-01-29)
 
 [Full Changelog](https://github.com/salsify/safer_rails_console/compare/v0.5.0...v0.5.1)

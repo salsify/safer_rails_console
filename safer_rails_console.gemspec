@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.7'
+
   spec.add_development_dependency 'appraisal', '~> 2.2'
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'climate_control', '~> 0.2.0'
@@ -43,5 +45,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'salsify_rubocop', '~> 0.48.0'
 
-  spec.add_runtime_dependency 'rails', '>= 5.0', '< 6.2'
+  spec.add_runtime_dependency 'rails', '>= 6.0', '< 6.2'
 end
