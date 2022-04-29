@@ -4,7 +4,6 @@ module SaferRailsConsole
   module Patches
     module Sandbox
       module AutoRollback
-        extend SaferRailsConsole::Colors
 
         def self.rollback_and_begin_new_transaction
           connection = ::ActiveRecord::Base.connection
@@ -14,7 +13,10 @@ module SaferRailsConsole
 
         def self.handle_and_reraise_exception(error)
           if error.message.include?('PG::ReadOnlySqlTransaction')
-            puts color_text('An operation could not be completed due to read-only mode.', RED) # rubocop:disable Rails/Output
+            puts SaferRailsConsole::Colors.color_text( # rubocop:disable Rails/Output
+              'An operation could not be completed due to read-only mode.',
+              SaferRailsConsole::Colors::RED
+            )
           else
             rollback_and_begin_new_transaction
           end

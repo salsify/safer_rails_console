@@ -2,6 +2,8 @@
 
 module SaferRailsConsole
   module Colors
+    extend self
+
     NONE = 0
     BLACK = 30
     RED = 31
