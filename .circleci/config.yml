@@ -36,7 +36,7 @@ jobs:
         environment:
           CIRCLE_TEST_REPORTS: "test-results"
           BUNDLE_GEMFILE: "/home/circleci/safer_rails_console/<< parameters.gemfile >>"
-      - image: circleci/postgres:9.6
+      - image: cimg/postgres:12.9
         environment:
           POSTGRES_USER: "circleci"
           POSTGRES_DB: "safer_rails_console_test"
@@ -73,7 +73,13 @@ workflows:
       - test:
           matrix:
             parameters:
-              ruby_version: ["2.7.6", "3.0.4", "3.1.2"]
+              ruby_version:
+              - "2.7.6"
+              - "3.0.4"
+              - "3.1.2"
               gemfile:
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
+            exclude:
+              - ruby_version: "3.1.2"
+                gemfile: "gemfiles/6.0.gemfile"
