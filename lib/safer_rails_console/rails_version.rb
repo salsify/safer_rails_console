@@ -12,9 +12,9 @@ module SaferRailsConsole
       end
 
       def six_or_above?
-        return @is_six_or_above if defined?(@is_six_or_above)
+        return @six_or_above if defined?(@six_or_above)
 
-        @is_six_or_above = SaferRailsConsole::RailsVersion::RAILS_VERSION >= ::Gem::Version.new('6.0.0')
+        @six_or_above = SaferRailsConsole::RailsVersion::RAILS_VERSION >= ::Gem::Version.new('6.0.0')
       end
     end
   end

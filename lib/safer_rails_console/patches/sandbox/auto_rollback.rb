@@ -27,7 +27,7 @@ module SaferRailsConsole
         module PostgreSQLAdapterPatch
           def execute_and_clear(...)
             super
-          rescue => e
+          rescue StandardError => e
             SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e)
           end
         end

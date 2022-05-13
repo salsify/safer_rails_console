@@ -6,7 +6,7 @@ describe SaferRailsConsole::RailsVersion do
 
     # Reset memoized class instance variables - in practicality these should never change
     described_class.instance_variables.each do |var|
-      described_class.instance_variable_set(var, nil)
+      described_class.remove_instance_variable(var)
     end
   end
 
