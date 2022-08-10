@@ -67,12 +67,12 @@ module SaferRailsConsole
             'development' => 'dev',
             'staging' => 'staging',
             'production' => 'prod'
-        },
+        }.with_indifferent_access,
         environment_prompt_colors: {
             'development' => SaferRailsConsole::Colors::GREEN,
             'staging' => SaferRailsConsole::Colors::YELLOW,
             'production' => SaferRailsConsole::Colors::RED
-        },
+        }.with_indifferent_access,
         sandbox_environments: ['production'],
         sandbox_prompt: false,
         warn_environments: ['production'],
