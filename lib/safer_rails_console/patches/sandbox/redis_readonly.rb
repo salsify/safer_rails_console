@@ -45,7 +45,7 @@ module SaferRailsConsole
           end
         end
 
-        ::Redis::Client.prepend(RedisPatch) if defined?(::Redis::Client)
+        ::Redis.prepend(RedisPatch) if defined?(::Redis)
       end
     end
   end
