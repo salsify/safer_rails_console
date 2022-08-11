@@ -27,6 +27,20 @@ describe "Integration: patches/sandbox" do
     end
   end
 
+  context "active_job" do
+    it "sidekiq - loads testing module" do
+      # Run a console session that enqueues a job
+      run_console_commands('CoolJob.perform_async', 'CoolJob.perform_later')
+
+      # Run a new console session to ensure the sidekiq jobs were not enqueued
+      # result = run_console_commands("puts 'Sidekiq loaded = #{defined?(::Sidekiq) && ::Sidekiq.respond_to?(:testing) && ::Sidekiq.testing}'")
+      
+      # Run a new console session to ensure the sidekiq jobs were not enqueued
+      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Worker.jobs.count}"')
+      expect(result.stdout).to include('Sidekiq Jobs Enqueued = 0')
+    end
+  end
+
   def run_console_commands(*commands)
     commands += ['exit']
     run_console('--sandbox', input: commands.join("\n"))
