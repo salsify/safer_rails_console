@@ -42,8 +42,24 @@ describe "Integration: patches/sandbox" do
       run_console_commands('SidekiqJob.perform_async', 'SidekiqJob.perform_async')
 
       # Run a new console session to ensure the jobs were not enqueued
-      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Worker.jobs.count}"') # rubocop:disable Lint/InterpolationCheck
+      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Stats.new.enqueued}"') # rubocop:disable Lint/InterpolationCheck
       expect(result.stdout).to include('Sidekiq Jobs Enqueued = 0')
+    end
+  end
+
+  context "redis readonly" do
+    it "enforces readonly commands" do
+      # Run a console session that makes some redis changes
+      run_console_commands('SidekiqJob.perform_async', 'Redis.new.set("test", "value")')
+
+      # Run a new console session to ensure the database changes were not saved
+      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Stats.new.enqueued}"') # rubocop:disable Lint/InterpolationCheck
+      expect(result.stdout).to include('Sidekiq Jobs Enqueued = 0')
+    end
+
+    it "lets the user know that an operation could not be completed" do
+      result = run_console_commands('Redis.new.set("test", "value")')
+      expect(result.stdout).to include('An operation could not be completed due to read-only mode.')
     end
   end
 
