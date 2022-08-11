@@ -30,7 +30,7 @@ describe "Integration: patches/sandbox" do
   context "active_job" do
     it "activejob - uses test queue adapter" do
       # Run a console session that enqueues a job
-      run_console_commands('CoolJob.perform_later', 'CoolJob.perform_later')
+      run_console_commands('ActiveJobJob.perform_later', 'ActiveJobJob.perform_later')
 
       # Run a new console session to ensure the jobs were not enqueued
       result = run_console_commands('puts "ActiveJob Jobs Enqueued = #{ActiveJob::Base.queue_adapter.enqueued_jobs.size}"') # rubocop:disable Lint/InterpolationCheck Layout/LineLength
@@ -39,7 +39,7 @@ describe "Integration: patches/sandbox" do
 
     it "sidekiq - uses testing module" do
       # Run a console session that enqueues a job
-      run_console_commands('CoolJob.perform_async', 'CoolJob.perform_async')
+      run_console_commands('SidekiqJob.perform_async', 'SidekiqJob.perform_async')
 
       # Run a new console session to ensure the jobs were not enqueued
       result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Worker.jobs.count}"') # rubocop:disable Lint/InterpolationCheck
