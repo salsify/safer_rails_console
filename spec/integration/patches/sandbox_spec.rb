@@ -28,15 +28,21 @@ describe "Integration: patches/sandbox" do
   end
 
   context "active_job" do
-    it "sidekiq - loads testing module" do
+    it "activejob - uses test queue adapter" do
+      # Run a console session that enqueues a job
+      run_console_commands('CoolJob.perform_later', 'CoolJob.perform_later')
+      
+      # Run a new console session to ensure the jobs were not enqueued
+      result = run_console_commands('puts "ActiveJob Jobs Enqueued = #{ActiveJob::Base.queue_adapter.enqueued_jobs.size}"') # rubocop:disable Lint/InterpolationCheck
+      expect(result.stdout).to include('ActiveJob Jobs Enqueued = 0')
+    end
+
+    it "sidekiq - uses testing module" do
       # Run a console session that enqueues a job
       run_console_commands('CoolJob.perform_async', 'CoolJob.perform_async')
-
-      # Run a new console session to ensure the sidekiq jobs were not enqueued
-      # result = run_console_commands("puts 'Sidekiq loaded = #{defined?(::Sidekiq) && ::Sidekiq.respond_to?(:testing) && ::Sidekiq.testing}'")
       
-      # Run a new console session to ensure the sidekiq jobs were not enqueued
-      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Worker.jobs.count}"')
+      # Run a new console session to ensure the jobs were not enqueued
+      result = run_console_commands('puts "Sidekiq Jobs Enqueued = #{Sidekiq::Worker.jobs.count}"') # rubocop:disable Lint/InterpolationCheck
       expect(result.stdout).to include('Sidekiq Jobs Enqueued = 0')
     end
   end

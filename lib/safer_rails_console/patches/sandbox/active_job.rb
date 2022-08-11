@@ -4,9 +4,11 @@ module SaferRailsConsole
   module Patches
     module Sandbox
       module ActiveJob
-        if defined?(::Sidekiq)
-          require 'sidekiq/testing'
-        end
+        # ActiveJob
+        ActiveJob::Base.queue_adapter = :test if defined?(::ActiveJob)
+
+        # Sidekiq
+        require 'sidekiq/testing' if defined?(::Sidekiq)
       end
     end
   end
