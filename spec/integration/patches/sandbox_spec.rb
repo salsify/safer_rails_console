@@ -53,8 +53,8 @@ describe "Integration: patches/sandbox" do
       run_console_commands('Redis.new.set("test", "value")')
 
       # Run a new console session to ensure the redis changes were not saved
-      result = run_console_commands('puts "Redis.get(\'test\') = #{Redis.new.get(\'test\')}"') # rubocop:disable Lint/InterpolationCheck Layout/LineLength
-      expect(result.stdout).to include('Redis.get("test") = ')
+      result = run_console_commands('puts "Redis.get(\'test\') = #{Redis.new.get(\'test\').nil?}"') # rubocop:disable Lint/InterpolationCheck Layout/LineLength
+      expect(result.stdout).to include('Redis.get("test") = true')
     end
 
     it "lets the user know that an operation could not be completed" do
