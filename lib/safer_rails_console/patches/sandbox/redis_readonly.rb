@@ -17,7 +17,7 @@ module SaferRailsConsole
         }.freeze
 
         def self.raise_exception_on_write_command(command)
-          if WRITE_COMMANDS.include?(command)
+          if WRITE_COMMANDS.include?(command.to_s)
             raise ::Redis::CommandError.new("Write commands are not allowed in readonly mode: #{command}")
           end
         end
@@ -35,7 +35,7 @@ module SaferRailsConsole
 
         module RedisPatch
           def process(commands)
-            commands.each do |command|
+            commands.flatten.each do |command|
               SaferRailsConsole::Patches::Sandbox::RedisReadonly.raise_exception_on_write_command(command)
             rescue Redis::CommandError => e
               SaferRailsConsole::Patches::Sandbox::RedisReadonly.handle_and_reraise_exception(e)
