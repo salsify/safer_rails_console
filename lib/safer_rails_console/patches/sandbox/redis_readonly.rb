@@ -4,6 +4,7 @@ module SaferRailsConsole
   module Patches
     module Sandbox
       module RedisReadonly
+        # rubocop:disable Style/WordArray
         WRITE_COMMANDS = %w{
           bitop restore pfdebug lpushx incr move getex decrby renamenx flushdb setex
           setnx linsert rpush bzpopmax hset del copy xsetid georadiusbymember setrange blmove set rpop
@@ -13,7 +14,7 @@ module SaferRailsConsole
           zpopmax zremrangebyrank setbit pexpireat mset hincrbyfloat incrby blpop getset expireat xreadgroup
           hincrby migrate lmove pexpire flushall smove msetnx decr persist rpushx pfmerge xadd zremrangebylex
           restore-asking geoadd rpoplpush zadd lpush srem brpoplpush zpopmin brpop geosearchstore zinterstore rename
-        }
+        }.freeze
 
         def self.raise_exception_on_write_command(command)
           if WRITE_COMMANDS.include?(command)
@@ -22,7 +23,7 @@ module SaferRailsConsole
         end
 
         def self.handle_and_reraise_exception(error)
-          if error.message.include?('Redis::CommandError')
+          if error.message.include?('Write commands are not allowed')
             puts SaferRailsConsole::Colors.color_text( # rubocop:disable Rails/Output
               'An operation could not be completed due to read-only mode.',
               SaferRailsConsole::Colors::RED
@@ -35,20 +36,16 @@ module SaferRailsConsole
         module RedisPatch
           def process(commands)
             commands.each do |command|
-              begin
-                raise_exception_on_write_command(command)
-              rescue => e
-                SaferRailsConsole::Patches::Sandbox::RedisReadonly.handle_and_reraise_exception(e)
-              end
+              SaferRailsConsole::Patches::Sandbox::RedisReadonly.raise_exception_on_write_command(command)
+            rescue Redis::CommandError => e
+              SaferRailsConsole::Patches::Sandbox::RedisReadonly.handle_and_reraise_exception(e)
             end
 
             super
           end
         end
 
-        if defined?(::Redis::Client)
-          ::Redis::Client.prepend(RedisPatch)
-        end
+        ::Redis::Client.prepend(RedisPatch) if defined?(::Redis::Client)
       end
     end
   end
