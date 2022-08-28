@@ -15,6 +15,7 @@ module SaferRailsConsole
           hincrby migrate lmove pexpire flushall smove msetnx decr persist rpushx pfmerge xadd zremrangebylex
           restore-asking geoadd rpoplpush zadd lpush srem brpoplpush zpopmin brpop geosearchstore zinterstore rename
         }.freeze
+        # rubocop:enable Style/WordArray
 
         def self.raise_exception_on_write_command(command)
           if WRITE_COMMANDS.include?(command.to_s)
