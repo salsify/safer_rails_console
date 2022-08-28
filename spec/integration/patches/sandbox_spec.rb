@@ -27,6 +27,22 @@ describe "Integration: patches/sandbox" do
     end
   end
 
+  context "redis readonly" do
+    it "enforces readonly commands" do
+      # Run a console session that makes some redis changes
+      run_console_commands('Redis.new.set("test", "value")')
+
+      # Run a new console session to ensure the redis changes were not saved
+      result = run_console_commands('puts "Redis.get(\'test\') = #{Redis.new.get(\'test\').nil?}"') # rubocop:disable Lint/InterpolationCheck Layout/LineLength
+      expect(result.stdout).to include('Redis.get("test") = true')
+    end
+
+    it "lets the user know that an operation could not be completed" do
+      result = run_console_commands('Redis.new.set("test", "value")')
+      expect(result.stdout).to include('An operation could not be completed due to read-only mode.')
+    end
+  end
+
   def run_console_commands(*commands)
     commands += ['exit']
     run_console('--sandbox', input: commands.join("\n"))
