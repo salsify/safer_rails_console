@@ -4,21 +4,19 @@ module SaferRailsConsole
   module Patches
     module Sandbox
       module RedisReadonly
-        # rubocop:disable Style/WordArray
-        WRITE_COMMANDS = %w{
-          bitop restore pfdebug lpushx incr move getex decrby renamenx flushdb setex
-          setnx linsert rpush bzpopmax hset del copy xsetid georadiusbymember setrange blmove set rpop
-          lset xtrim zrangestore psetex xclaim append georadius incrbyfloat bitfield expire sort hsetnx
-          sadd zincrby lpop spop sunionstore getdel lrem zunionstore sdiffstore zremrangebyscore ltrim
-          bzpopmin xack pfadd unlink swapdb sinterstore zrem xgroup hdel zdiffstore xautoclaim xdel hmset
-          zpopmax zremrangebyrank setbit pexpireat mset hincrbyfloat incrby blpop getset expireat xreadgroup
-          hincrby migrate lmove pexpire flushall smove msetnx decr persist rpushx pfmerge xadd zremrangebylex
-          restore-asking geoadd rpoplpush zadd lpush srem brpoplpush zpopmin brpop geosearchstore zinterstore rename
-        }.freeze
-        # rubocop:enable Style/WordArray
+        READ_COMMANDS = [
+          'hvals', 'bitcount', 'zscan', 'hget', 'smembers', 'hrandfield', 'zrevrange', 'bitpos', 'hlen', 'xlen', 'post',
+          'zscore', 'dbsize', 'get', 'hstrlen', 'zrangebylex', 'scan', 'georadiusbymember_ro', 'zmscore', 'smismember',
+          'zcount', 'lrange', 'stralgo', 'zrank', 'pttl', 'lpos', 'geopos', 'ttl', 'zrangebyscore', 'sdiff', 'llen',
+          'sismember', 'zrevrangebyscore', 'zdiff', 'zrandmember', 'geodist', 'hexists', 'zrange', 'hmget', 'lindex',
+          'zrevrangebylex', 'sunion', 'randomkey', 'zrevrank', 'xrange', 'xpending', 'hgetall', 'getrange', 'exists',
+          'keys', 'georadius_ro', 'lolwut', 'hscan', 'object', 'zlexcount', 'type', 'geohash', 'touch', 'hkeys',
+          'strlen', 'scard', 'substr', 'zinter', 'srandmember', 'mget', 'xinfo', 'geosearch', 'zunion', 'xread',
+          'pfcount', 'xrevrange', 'sscan', 'memory', 'bitfield_ro', 'dump', 'host:', 'sinter', 'getbit', 'zcard'
+        ].freeze
 
         def self.raise_exception_on_write_command(command)
-          if WRITE_COMMANDS.include?(command.to_s)
+          unless READ_COMMANDS.include?(command.to_s)
             raise ::Redis::CommandError.new("Write commands are not allowed in readonly mode: #{command}")
           end
         end
