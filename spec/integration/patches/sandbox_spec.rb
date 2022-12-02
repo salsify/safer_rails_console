@@ -49,7 +49,10 @@ describe "Integration: patches/sandbox" do
       run_console_commands('RedisClient.new.call("SET", "test", "value")')
 
       # Run a new console session to ensure the redis changes were not saved
-      result = run_console_commands('puts "RedisClient.new.call(\"GET\", \"test\").nil? = #{RedisClient.new.call(\'GET\', \'test\').nil?}"') # rubocop:disable Lint/InterpolationCheck Layout/LineLength
+      result = run_console_commands(
+        'puts "RedisClient.new.call(\"GET\", \"test\").nil? = ' \
+        '#{RedisClient.new.call(\'GET\', \'test\').nil?}"' # rubocop:disable Lint/InterpolationCheck
+      )
       expect(result.stdout).to include('RedisClient.new.call("GET", "test").nil? = true')
     end
 

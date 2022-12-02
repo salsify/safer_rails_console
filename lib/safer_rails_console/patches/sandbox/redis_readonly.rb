@@ -17,7 +17,9 @@ module SaferRailsConsole
 
         def self.raise_exception_on_write_command(command, service = ::Redis)
           unless READ_COMMANDS.include?(command.downcase.to_s)
-            raise "#{service}".constantize::CommandError.new("Write commands are not allowed in readonly mode: #{command}")
+            raise service.to_s.constantize::CommandError.new(
+              "Write commands are not allowed in readonly mode: #{command}"
+            )
           end
         end
 
@@ -48,7 +50,8 @@ module SaferRailsConsole
           def call(commands, redis_config)
             command = commands.first
             begin
-              SaferRailsConsole::Patches::Sandbox::RedisReadonly.raise_exception_on_write_command(command, ::RedisClient)
+              SaferRailsConsole::Patches::Sandbox::RedisReadonly.raise_exception_on_write_command(command,
+                                                                                                  ::RedisClient)
             rescue RedisClient::CommandError => e
               SaferRailsConsole::Patches::Sandbox::RedisReadonly.handle_and_reraise_exception(e)
             end
