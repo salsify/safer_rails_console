@@ -39,7 +39,7 @@ describe "Integration: patches/sandbox" do
 
     it "lets the user know that an operation could not be completed" do
       result = run_console_commands('Redis.new.set("test", "value")')
-      expect(result.stdout).to include('Write commands are not allowed in readonly mode: test')
+      expect(result.stdout).to include('An operation could not be completed due to read-only mode.')
     end
   end
 

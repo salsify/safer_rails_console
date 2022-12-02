@@ -34,12 +34,12 @@ module SaferRailsConsole
 
         module RedisPatch
           def process(commands)
-            commands.flatten.each do |command|
+            begin
+              command = commands.flatten.first
               SaferRailsConsole::Patches::Sandbox::RedisReadonly.raise_exception_on_write_command(command)
             rescue Redis::CommandError => e
               SaferRailsConsole::Patches::Sandbox::RedisReadonly.handle_and_reraise_exception(e)
             end
-
             super
           end
         end
