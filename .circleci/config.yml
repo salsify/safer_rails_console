@@ -82,6 +82,7 @@ workflows:
               - "gemfiles/6.0.gemfile"
               - "gemfiles/6.1.gemfile"
               - "gemfiles/7.0.gemfile"
+              - "gemfiles/7.1.gemfile"
             exclude:
               - ruby_version: "3.1.4"
                 gemfile: "gemfiles/6.0.gemfile"

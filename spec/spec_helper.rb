@@ -15,7 +15,8 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     system!("export RAILS_ENV=development && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
-    system!("export RAILS_ENV=production && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
+    system!('export SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production && '\
+      "cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
   end
 
   config.before do
@@ -26,7 +27,10 @@ RSpec.configure do |config|
     rails_cmd = File.join(rails_root, 'bin', 'rails')
     shell_out = Mixlib::ShellOut.new(
       "#{rails_cmd} console #{args.join(' ')}",
-      env: { RAILS_ENV: rails_env.to_s },
+      env: {
+        SECRET_KEY_BASE_DUMMY: '1',
+        RAILS_ENV: rails_env.to_s
+      },
       input: input
     )
     shell_out.run_command

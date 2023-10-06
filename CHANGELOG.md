@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.7.0
+- Add support for Rails 7.1.
+
 ## v0.6.0
 - Drop support for Ruby < 2.7 and Rails < 6.0.
 - Add support for Ruby 3.1.
