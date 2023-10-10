@@ -9,6 +9,7 @@ describe "Integration: patches/railtie" do
   context "sandbox" do
     let(:cmd_stdout) do
       result = run_console(rails_env: rails_env, input: 'exit')
+      result.error!
       result.stdout
     end
 

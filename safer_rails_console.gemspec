@@ -46,5 +46,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'salsify_rubocop', '~> 1.27.0'
 
-  spec.add_runtime_dependency 'rails', '>= 6.0', '< 7.1'
+  spec.add_runtime_dependency 'rails', '>= 6.0', '< 7.2'
 end
