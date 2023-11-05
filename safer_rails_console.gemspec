@@ -42,6 +42,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'overcommit', '~> 0.39.0'
   spec.add_development_dependency 'pg', '~> 1.1'
   spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'redis', '~> 4.7'
+  spec.add_development_dependency 'redis-client', '~> 0.11'
   spec.add_development_dependency 'rspec', '~> 3.6'
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'salsify_rubocop', '~> 1.27.0'

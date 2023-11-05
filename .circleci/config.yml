@@ -41,6 +41,7 @@ jobs:
           POSTGRES_USER: "circleci"
           POSTGRES_DB: "safer_rails_console_test"
           POSTGRES_HOST_AUTH_METHOD: "trust"
+      - image: cimg/redis:6.2.6
     working_directory: ~/safer_rails_console
     steps:
       - checkout
