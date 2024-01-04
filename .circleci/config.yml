@@ -69,22 +69,23 @@ jobs:
 workflows:
   build:
     jobs:
-      - lint
-      - test:
-          matrix:
-            parameters:
-              ruby_version:
-              - "2.7.8"
-              - "3.0.6"
-              - "3.1.4"
-              - "3.2.2"
-              gemfile:
-              - "gemfiles/6.0.gemfile"
-              - "gemfiles/6.1.gemfile"
-              - "gemfiles/7.0.gemfile"
-              - "gemfiles/7.1.gemfile"
-            exclude:
-              - ruby_version: "3.1.4"
-                gemfile: "gemfiles/6.0.gemfile"
-              - ruby_version: "3.2.2"
-                gemfile: "gemfiles/6.0.gemfile"
+    - lint
+    - test:
+        matrix:
+          parameters:
+            ruby_version:
+            - 2.7.8
+            - 3.0.6
+            - 3.1.4
+            - 3.2.2
+            - 3.3.0
+            gemfile:
+            - gemfiles/6.0.gemfile
+            - gemfiles/6.1.gemfile
+            - gemfiles/7.0.gemfile
+            - gemfiles/7.1.gemfile
+          exclude:
+          - ruby_version: 3.1.4
+            gemfile: gemfiles/6.0.gemfile
+          - ruby_version: 3.2.2
+            gemfile: gemfiles/6.0.gemfile
