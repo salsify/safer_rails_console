@@ -2,14 +2,14 @@ version: 2.1
 jobs:
   lint:
     docker:
-      - image: cimg/ruby:2.7.8
+      - image: cimg/ruby:3.0.6
     working_directory: ~/safer_rails_console
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v2-gems-ruby-2.7.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
-            - v2-gems-ruby-2.7.8-
+            - v2-gems-ruby-3.0.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+            - v2-gems-ruby-3.0.6-
       - run:
           name: Install Gems
           command: |
@@ -18,7 +18,7 @@ jobs:
               bundle clean
             fi
       - save_cache:
-          key: v2-gems-ruby-2.7.8-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+          key: v2-gems-ruby-3.0.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
@@ -36,7 +36,7 @@ jobs:
         environment:
           CIRCLE_TEST_REPORTS: "test-results"
           BUNDLE_GEMFILE: "/home/circleci/safer_rails_console/<< parameters.gemfile >>"
-      - image: cimg/postgres:12.9
+      - image: cimg/postgres:14.7
         environment:
           POSTGRES_USER: "circleci"
           POSTGRES_DB: "safer_rails_console_test"
@@ -74,17 +74,11 @@ workflows:
           matrix:
             parameters:
               ruby_version:
-              - "2.7.8"
-              - "3.0.6"
-              - "3.1.4"
-              - "3.2.2"
+                - 3.0.6
+                - 3.1.4
+                - 3.2.2
+                - 3.3.0
               gemfile:
-              - "gemfiles/6.0.gemfile"
-              - "gemfiles/6.1.gemfile"
-              - "gemfiles/7.0.gemfile"
-              - "gemfiles/7.1.gemfile"
-            exclude:
-              - ruby_version: "3.1.4"
-                gemfile: "gemfiles/6.0.gemfile"
-              - ruby_version: "3.2.2"
-                gemfile: "gemfiles/6.0.gemfile"
+                - gemfiles/6.1.gemfile
+                - gemfiles/7.0.gemfile
+                - gemfiles/7.1.gemfile
