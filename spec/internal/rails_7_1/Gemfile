@@ -7,6 +7,6 @@
 source 'https://rubygems.org'
 
 gem 'pg'
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.1.2'
 
 gem 'safer_rails_console', path: '../../../'
