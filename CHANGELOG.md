@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.9.0
+- Add MySql support
+
 ## v0.8.0
 - Drop support for Ruby 2.7.
 - Drop support for Rails 6.0.
