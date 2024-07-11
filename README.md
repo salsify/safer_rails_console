@@ -3,7 +3,7 @@
 [![Build Status](https://circleci.com/gh/salsify/safer_rails_console.svg?style=svg)](https://circleci.com/gh/salsify/safer_rails_console)
 [![Gem Version](https://badge.fury.io/rb/safer_rails_console.svg)](https://badge.fury.io/rb/safer_rails_console)
 
-This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, and auto-sandboxing PostgreSQL connections. In the future we'd like to extend this to make other external connections read-only too (e.g. disable job queueing, non-GET HTTP requests, etc.)
+This gem makes Rails console sessions less dangerous in specified environments by warning, color-coding, and auto-sandboxing PostgreSQL and MySQL connections. In the future we'd like to extend this to make other external connections read-only too (e.g. disable job queueing, non-GET HTTP requests, etc.)
 
 ## Installation
 

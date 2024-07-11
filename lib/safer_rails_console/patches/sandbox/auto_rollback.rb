@@ -11,8 +11,8 @@ module SaferRailsConsole
           connection.begin_db_transaction
         end
 
-        def self.handle_and_reraise_exception(error)
-          if error.message.include?('PG::ReadOnlySqlTransaction')
+        def self.handle_and_reraise_exception(error, message = 'PG::ReadOnlySqlTransaction')
+          if error.message.include?(message)
             puts SaferRailsConsole::Colors.color_text( # rubocop:disable Rails/Output
               'An operation could not be completed due to read-only mode.',
               SaferRailsConsole::Colors::RED
@@ -28,12 +28,26 @@ module SaferRailsConsole
           def execute_and_clear(...)
             super
           rescue StandardError => e
-            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e)
+            # rubocop:disable Layout/LineLength
+            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e, 'PG::ReadOnlySqlTransaction')
+            # rubocop:enable Layout/LineLength
           end
         end
 
         if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
           ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLAdapterPatch)
+        end
+
+        module MySQLPatch
+          def execute_and_free(...)
+            super
+          rescue StandardError => e
+            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e, 'READ ONLY transaction')
+          end
+        end
+
+        if defined?(::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter)
+          ::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter.prepend(MySQLPatch)
         end
       end
     end

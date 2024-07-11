@@ -7,8 +7,20 @@ default: &default
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
 
+mysql2: &mysql2
+  adapter: mysql2
+  timeout: 5000
+  port: <%= ENV['MYSQL_DB_PORT'] || 3306 %>
+  host: <%= ENV['MYSQL_DB_HOST'] || '127.0.0.1' %>
+  username: <%= ENV['MYSQL_DB_USER'] || 'root' %>
+  password: <%= ENV['MYSQL_DB_PASSWORD'] %>
+
 development:
   <<: *default
+  database: safer_rails_console_development
+
+development-mysql2:
+  <<: *mysql2
   database: safer_rails_console_development
 
 test:

@@ -15,3 +15,5 @@
 /gemfiles/*.gemfile.lock
 out
 *.sqlite3
+
+.idea

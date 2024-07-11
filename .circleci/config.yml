@@ -41,6 +41,11 @@ jobs:
           POSTGRES_USER: "circleci"
           POSTGRES_DB: "safer_rails_console_test"
           POSTGRES_HOST_AUTH_METHOD: "trust"
+      - image: cimg/mysql:8.0
+        environment:
+          MYSQL_DATABASE: "safer_rails_console_test"
+          MYSQL_ROOT_HOST: "%"
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     working_directory: ~/safer_rails_console
     steps:
       - checkout
@@ -60,6 +65,9 @@ jobs:
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
+      - run:
+          name: Wait for Mysql
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: Run Tests
           command: |

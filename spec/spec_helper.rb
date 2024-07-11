@@ -5,6 +5,8 @@ require 'climate_control'
 require 'mixlib/shellout'
 require 'safer_rails_console'
 
+DB_ADAPTERS = [:postgresql, :mysql2].freeze
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
@@ -14,9 +16,10 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    system!("export RAILS_ENV=development && cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
-    system!('export SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production && '\
-      "cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
+    migrate_all_dbs
+    system!("cd #{rails_root} && rake db:test:prepare")
+    system!('export SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production && ' \
+              "cd #{rails_root} && rake db:drop && rake db:setup && rake db:test:prepare")
   end
 
   config.before do
@@ -46,5 +49,16 @@ RSpec.configure do |config|
 
   def system!(command)
     raise "Command failed with exit code #{$CHILD_STATUS}: #{command}" unless system(command)
+  end
+
+  def migrate_all_dbs
+    DB_ADAPTERS.each { |adapter| migrate(adapter: adapter) }
+  end
+
+  def migrate(adapter:)
+    env = 'development'
+    env += "-#{adapter}" if adapter && adapter != :postgresql
+    system!("export SECRET_KEY_BASE_DUMMY=1 && export RAILS_ENV=#{env} && " \
+              "cd #{rails_root} && rake db:drop && rake db:setup")
   end
 end
