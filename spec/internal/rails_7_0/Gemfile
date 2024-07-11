@@ -6,6 +6,7 @@
 
 source 'https://rubygems.org'
 
+gem 'mysql2'
 gem 'pg'
 gem 'rails', '~> 7.0.8'
 
