@@ -33,5 +33,8 @@ module Rails61
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Do not eager load code on boot.
+    config.eager_load = false
   end
 end
