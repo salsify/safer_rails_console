@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+# Generated with:
+#     rails new -JABTCM --skip-keeps --skip-active-storage --skip-system-test --skip-bootsnap --skip-hotwire -d postgresql spec/internal/rails_7_0
+# Then modified to match the others
+
+source 'https://rubygems.org'
+
+gem 'mysql2'
+gem 'pg'
+gem 'rails', '~> 7.2.0'
+
+gem 'safer_rails_console', path: '../../../'

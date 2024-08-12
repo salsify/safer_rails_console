@@ -2,14 +2,14 @@ version: 2.1
 jobs:
   lint:
     docker:
-      - image: cimg/ruby:3.0.6
+      - image: cimg/ruby:3.1.5
     working_directory: ~/safer_rails_console
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v2-gems-ruby-3.0.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
-            - v2-gems-ruby-3.0.6-
+            - v2-gems-ruby-3.1.5-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+            - v2-gems-ruby-3.1.5-
       - run:
           name: Install Gems
           command: |
@@ -18,7 +18,7 @@ jobs:
               bundle clean
             fi
       - save_cache:
-          key: v2-gems-ruby-3.0.6-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
+          key: v2-gems-ruby-3.1.5-{{ checksum "safer_rails_console.gemspec" }}-{{ checksum "Gemfile" }}
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
@@ -82,7 +82,6 @@ workflows:
           matrix:
             parameters:
               ruby_version:
-                - 3.0.6
                 - 3.1.4
                 - 3.2.2
                 - 3.3.0
@@ -90,3 +89,4 @@ workflows:
                 - gemfiles/6.1.gemfile
                 - gemfiles/7.0.gemfile
                 - gemfiles/7.1.gemfile
+                - gemfiles/7.2.gemfile

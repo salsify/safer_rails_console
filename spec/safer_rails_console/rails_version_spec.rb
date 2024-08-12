@@ -54,4 +54,13 @@ describe SaferRailsConsole::RailsVersion do
       expect(described_class.six_or_above?).to eq(true)
     end
   end
+
+  describe "7.2" do
+    let(:rails_version) { '7.2.0' }
+
+    it "responds correctly" do
+      expect(described_class.supported?).to eq(true)
+      expect(described_class.six_or_above?).to eq(true)
+    end
+  end
 end
