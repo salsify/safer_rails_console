@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.10.0
+- Drop support for Ruby 3.0.
+- Add support for Rails 7.2. **Thanks [@kwent](https://github.com/kwent)**
+
 ## v0.9.0
 - Add MySql support
 
