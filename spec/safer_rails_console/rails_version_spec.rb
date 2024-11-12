@@ -16,6 +16,7 @@ describe SaferRailsConsole::RailsVersion do
     it "responds correctly" do
       expect(described_class.supported?).to eq(false)
       expect(described_class.six_or_above?).to eq(false)
+      expect(described_class.eight_or_above?).to eq(false)
     end
   end
 
@@ -25,6 +26,7 @@ describe SaferRailsConsole::RailsVersion do
     it "responds correctly" do
       expect(described_class.supported?).to eq(true)
       expect(described_class.six_or_above?).to eq(true)
+      expect(described_class.eight_or_above?).to eq(false)
     end
   end
 
@@ -43,6 +45,7 @@ describe SaferRailsConsole::RailsVersion do
     it "responds correctly" do
       expect(described_class.supported?).to eq(true)
       expect(described_class.six_or_above?).to eq(true)
+      expect(described_class.eight_or_above?).to eq(false)
     end
   end
 
@@ -52,6 +55,7 @@ describe SaferRailsConsole::RailsVersion do
     it "responds correctly" do
       expect(described_class.supported?).to eq(true)
       expect(described_class.six_or_above?).to eq(true)
+      expect(described_class.eight_or_above?).to eq(false)
     end
   end
 
@@ -61,6 +65,17 @@ describe SaferRailsConsole::RailsVersion do
     it "responds correctly" do
       expect(described_class.supported?).to eq(true)
       expect(described_class.six_or_above?).to eq(true)
+      expect(described_class.eight_or_above?).to eq(false)
+    end
+  end
+
+  describe "8.0" do
+    let(:rails_version) { '8.0.0' }
+
+    it "responds correctly" do
+      expect(described_class.supported?).to eq(true)
+      expect(described_class.six_or_above?).to eq(true)
+      expect(described_class.eight_or_above?).to eq(true)
     end
   end
 end

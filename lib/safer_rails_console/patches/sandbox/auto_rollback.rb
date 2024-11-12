@@ -24,7 +24,19 @@ module SaferRailsConsole
           raise error
         end
 
-        module PostgreSQLAdapterPatch
+        # Patch for the PostgreSQL database adapter for Rails 8.0 and above.
+        module PostgreSQLAdapteRailsPatch
+          def internal_execute(...)
+            super
+          rescue StandardError => e
+            # rubocop:disable Layout/LineLength
+            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e, 'PG::ReadOnlySqlTransaction')
+            # rubocop:enable Layout/LineLength
+          end
+        end
+
+        # Patch for the PostgreSQL database adapter for Rails 6.x and 7.x.
+        module LegacyPostgreSQLAdapteRailsPatch
           def execute_and_clear(...)
             super
           rescue StandardError => e
@@ -35,10 +47,24 @@ module SaferRailsConsole
         end
 
         if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
-          ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLAdapterPatch)
+          if SaferRailsConsole::RailsVersion.eight_or_above?
+            ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLAdapteRailsPatch)
+          elsif SaferRailsConsole::RailsVersion.six_or_above?
+            ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(LegacyPostgreSQLAdapteRailsPatch)
+          end
         end
 
-        module MySQLPatch
+        # Patch for the MySQL database adapter for Rails 8.0 and above.
+        module MySQLAdapterRailsPatch
+          def internal_execute(...)
+            super
+          rescue StandardError => e
+            SaferRailsConsole::Patches::Sandbox::AutoRollback.handle_and_reraise_exception(e, 'READ ONLY transaction')
+          end
+        end
+
+        # Patch for the MySQL database adapter for Rails 6.x and 7.x.
+        module LegacyMySQLAdapterRails67Patch
           def execute_and_free(...)
             super
           rescue StandardError => e
@@ -47,7 +73,11 @@ module SaferRailsConsole
         end
 
         if defined?(::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter)
-          ::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter.prepend(MySQLPatch)
+          if SaferRailsConsole::RailsVersion.eight_or_above?
+            ::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter.prepend(MySQLAdapterRailsPatch)
+          elsif SaferRailsConsole::RailsVersion.six_or_above?
+            ::ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter.prepend(LegacyMySQLAdapterRails67Patch)
+          end
         end
       end
     end
