@@ -91,5 +91,5 @@ workflows:
                 - 3.2.4
                 - 3.3.4
             exclude:
-              - gemfile: gemfiles/rails_8.0.gemfile
+              - gemfile: gemfiles/8.0.gemfile
                 ruby_version: 3.1.5
