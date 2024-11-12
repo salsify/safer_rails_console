@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.11.0
+- Add support for Rails 8.0. **Thanks [@olivier-thatch](https://github.com/olivier-thatch)**
+
 ## v0.10.0
 - Drop support for Ruby 3.0.
 - Add support for Rails 7.2. **Thanks [@kwent](https://github.com/kwent)**
