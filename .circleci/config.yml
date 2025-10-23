@@ -85,12 +85,19 @@ workflows:
                 - 3.1.6
                 - 3.2.6
                 - 3.3.6
+                - 3.4.7
               gemfile:
                 - gemfiles/6.1.gemfile
                 - gemfiles/7.0.gemfile
                 - gemfiles/7.1.gemfile
                 - gemfiles/7.2.gemfile
                 - gemfiles/8.0.gemfile
+                - gemfiles/8.1.gemfile
             exclude:
+              # Rails 8.x requires Ruby >= 3.3
               - ruby_version: 3.1.6
                 gemfile: gemfiles/8.0.gemfile
+              - ruby_version: 3.1.6
+                gemfile: gemfiles/8.1.gemfile
+              - ruby_version: 3.2.6
+                gemfile: gemfiles/8.1.gemfile

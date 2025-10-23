@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- Add support for Rails 8.1.
+- Add support for Ruby 3.4.
+
 ## v0.11.0
 - Add support for Rails 8.0. **Thanks [@olivier-thatch](https://github.com/olivier-thatch)**
 
