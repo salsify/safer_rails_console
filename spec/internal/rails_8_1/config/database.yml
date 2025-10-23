@@ -1,0 +1,49 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  port: <%= ENV['DB_PORT'] || 5432 %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+mysql2: &mysql2
+  adapter: mysql2
+  timeout: 5000
+  port: <%= ENV['MYSQL_DB_PORT'] || 3306 %>
+  host: <%= ENV['MYSQL_DB_HOST'] || '127.0.0.1' %>
+  username: <%= ENV['MYSQL_DB_USER'] || 'root' %>
+  password: <%= ENV['MYSQL_DB_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: safer_rails_console_development
+
+development-mysql2:
+  <<: *mysql2
+  database: safer_rails_console_development
+
+test:
+  <<: *default
+  database: safer_rails_console_test
+
+production:
+  <<: *default
+  database: safer_rails_console_production
