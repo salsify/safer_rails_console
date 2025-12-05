@@ -43,7 +43,9 @@ describe SaferRailsConsole do
 
   describe "::Configuration" do
     it "has defaults" do
-      expect(SaferRailsConsole::Configuration.config).to eq(SaferRailsConsole::Configuration::CONFIG_DEFAULTS)
+      SaferRailsConsole::Configuration::CONFIG_DEFAULTS.each do |key, value|
+        expect(described_class.config.send(key)).to eq(value)
+      end
     end
 
     it "#set" do
