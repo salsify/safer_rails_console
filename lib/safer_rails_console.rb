@@ -59,8 +59,6 @@ module SaferRailsConsole
   end
 
   class Configuration
-    include ActiveSupport::Configurable
-
     CONFIG_DEFAULTS = {
         console: 'irb',
         environment_names: {
@@ -82,11 +80,13 @@ module SaferRailsConsole
     }.freeze
 
     CONFIG_DEFAULTS.each do |name, value|
-      config_accessor(name) { value }
+      class_attribute name, default: value
     end
 
     def set(**new_config)
-      config.merge!(new_config.select { |k, _v| CONFIG_DEFAULTS.key?(k) })
+      new_config.each do |key, value|
+        send("#{key}=", value) if CONFIG_DEFAULTS.key?(key)
+      end
     end
   end
 end

@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.13.0
+
+- Fix deprecation warning in Rails 8.1
+
 ## v0.12.0
 - Add support for Rails 8.1. **Thanks [@kwent](https://github.com/kwent)**
 - Add support for Ruby 3.4.
