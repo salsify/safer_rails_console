@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 3.2'
 
   spec.add_development_dependency 'appraisal', '~> 2.2'
-  spec.add_development_dependency 'bundler', '~> 2.0'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'climate_control', '~> 0.2.0'
   spec.add_development_dependency 'mixlib-shellout', '~> 2.2'
   spec.add_development_dependency 'mysql2', '~> 0.5'
@@ -47,5 +47,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'salsify_rubocop', '~> 1.27.0'
 
+  spec.add_runtime_dependency 'ostruct'
   spec.add_runtime_dependency 'rails', '>= 7.2', '< 8.2'
+  spec.add_runtime_dependency 'readline'
+
 end
