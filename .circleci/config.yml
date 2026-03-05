@@ -13,8 +13,9 @@ jobs:
       - run:
           name: Install Gems
           command: |
-            if ! bundle check --path=vendor/bundle; then
-              bundle install --path=vendor/bundle --jobs=4 --retry=3
+            bundle config set path 'vendor/bundle'
+            if ! bundle check; then
+              bundle install --jobs=4 --retry=3
               bundle clean
             fi
       - save_cache:
@@ -56,8 +57,9 @@ jobs:
       - run:
           name: Install Gems
           command: |
-            if ! bundle check --path=vendor/bundle; then
-              bundle install --path=vendor/bundle --jobs=4 --retry=3
+            bundle config set path 'vendor/bundle'
+            if ! bundle check; then
+              bundle install --jobs=4 --retry=3
               bundle clean
             fi
       - save_cache:
@@ -85,6 +87,7 @@ workflows:
                 - 3.2.6
                 - 3.3.6
                 - 3.4.7
+                - 4.0.0
               gemfile:
                 - gemfiles/7.2.gemfile
                 - gemfiles/8.0.gemfile
